@@ -72,6 +72,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                             <td class="text-center"><?php echo date('Y-m-d H:i:s'); ?></td>
                                             <td>
                                                 <button type="submit" class="btn btn-primary">Guardar y generar comprobante</button>
+                                                <button type="submit" class="btn btn-primary">PDF</button>
                                             </td>
                                         </tr>
                                     <?php
