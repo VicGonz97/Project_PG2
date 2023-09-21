@@ -34,6 +34,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     }
 
 ?>
+
     <!-- Formulario de registro -->
     <div class="container">
         <div class="row">
@@ -119,8 +120,13 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                 </li>
             </div>
             <div class="col-sm-1">&nbsp;</div>
+            </div>
         </div>
+        
+        </div>
+        
     </div>
+    
 <?php
 }
 ?>
@@ -131,3 +137,4 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $("#fechainput").datepicker();
     });
 </script>
+

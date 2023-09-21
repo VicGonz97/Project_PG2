@@ -13,10 +13,13 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', end
 
 }
 
-footer{
-	background-color: #bce8f1;
-}
+footer {
+	background-color: #040D12;
+	
+  }
+  
 
 navbar{
-	background-color: #bce8f1;
+	background-color:#040D12;
 }
+

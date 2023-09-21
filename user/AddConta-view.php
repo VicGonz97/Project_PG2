@@ -1,13 +1,10 @@
-<?php
-if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
-    // Incluye tu archivo de conexión a la base de datos (config.php u otro)
-    require_once './lib/config.php';
+<?php if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
+    <?php
+    require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
 
-    // Obtiene la cantidad total de registros de contribuyentes
     $num_user = Mysql::consulta("SELECT * FROM contribuyente");
     $num_total_user = mysqli_num_rows($num_user);
-?>
-
+    ?>
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
@@ -21,28 +18,22 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             <div class="col-md-12">
                 <div class="table-responsive">
                     <?php
-                    // Conecta a la base de datos
                     $mysqli = mysqli_connect(SERVER, USER, PASS, BD);
                     mysqli_set_charset($mysqli, "utf8");
 
-                    // Obtiene la página actual y calcula el inicio de la paginación
                     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
                     $regpagina = 15;
                     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-                    // Consulta para obtener los registros limitados según la paginación
                     $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contribuyente LIMIT $inicio, $regpagina");
 
-                    // Obtiene el total de registros encontrados sin límite
                     $totalregistros = mysqli_query($mysqli, "SELECT FOUND_ROWS()");
                     $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
 
-                    // Calcula el número de páginas
                     $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
-
                     if (mysqli_num_rows($selusers) > 0) :
                     ?>
-                        <form action="./index.php?view=SaveConta" method="POST">
+                        <form action="./index.php?view=SaveConta" method="POST"> <!-- Agregamos un formulario para enviar la asistencia -->
                             <table class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -50,9 +41,8 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Apellidos</th>
                                         <th class="text-center">DPI</th>
-                                        <th class="text-center">Cantidad</th> <!-- Nueva columna para la Cantidad -->
-                                        <th class="text-center">Fecha y Hora</th> <!-- Nueva columna para la Fecha y Hora -->
-                                        <th class="text-center">Opciones</th>
+                                        <th class="text-center">Cantidad</th> <!-- Cambiamos el nombre de la columna -->
+                                        <th class="text-center">Fecha</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -66,14 +56,10 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                             <td class="text-center"><?php echo $row['apellido']; ?></td>
                                             <td class="text-center"><?php echo $row['dpi']; ?></td>
                                             <td class="text-center">
-                                                <label for="cantidad_<?php echo $row['id_contr']; ?>">Cantidad</label>
-                                                <input type="text" name="cantidad_[<?php echo $row['id_contr']; ?>]" id="cantidad_<?php echo $row['id_contr']; ?>" placeholder="Cantidad">
+                                                <!-- Cambiamos el tipo de campo de entrada -->
+                                                <input type="number" name="cantidad_<?php echo $row['id_contr']; ?>" />
                                             </td>
-                                            <td class="text-center"><?php echo date('Y-m-d H:i:s'); ?></td>
-                                            <td>
-                                                <button type="submit" class="btn btn-primary">Guardar y generar comprobante</button>
-                                                <button type="submit" class="btn btn-primary">PDF</button>
-                                            </td>
+                                            <td class="text-center"><?php echo date('Y-m-d H:i:s'); ?></td> <!-- Muestra la fecha y hora actual -->
                                         </tr>
                                     <?php
                                         $ct++;
@@ -81,37 +67,70 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                     ?>
                                 </tbody>
                             </table>
-
-                            <a href="./index.php?view=ViewAsistencia" class="btn btn-info">Ver caja</a>
+                            <button type="submit" class="btn btn-primary">Registrar</button> <!-- Agregamos un botón para registrar la asistencia -->
+                            <a href="./index.php?view=ViewConta" class="btn btn-info">Ver caja</a>
                             <a href="./index.php" class="btn btn-danger">Cancelar</a>
                         </form>
+
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
                 <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
-                        <!-- Aquí debes agregar tu código para generar los enlaces de paginación -->
+                        <ul class="pagination">
+                            <?php if ($pagina == 1) : ?>
+                                <li class="disabled">
+                                    <a aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            <?php else : ?>
+                                <li>
+                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+
+                            <?php
+                            for ($i = 1; $i <= $numeropaginas; $i++) {
+                                if ($pagina == $i) {
+                                    echo '<li class="active"><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                } else {
+                                    echo '<li><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                }
+                            }
+                            ?>
+
+                            <?php if ($pagina == $numeropaginas) : ?>
+                                <li class="disabled">
+                                    <a aria-label="Previous">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            <?php else : ?>
+                                <li>
+                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
+                        </ul>
                     </nav>
                 <?php endif; ?>
             </div>
         </div>
     </div>
-<?php
+    <?php
 } else {
-?>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="./img/Guatemala.png" alt="Image" class="img-responsive animated slideInDown" /><br>
-            </div>
-            <div class="col-sm-7 animated flip">
-                <h1 class="text-danger">Lo sentimos, esta página es solamente para el COCODE a Cargo</h1>
-                <h3 class="text-info text-center">Inicia sesión como COCODE para poder acceder</h3>
-            </div>
-            <div class="col-sm-1">&nbsp;</div>
-        </div>
-    </div>
-<?php
+
 }
 ?>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#fechainput").datepicker();
+    });
+</script>

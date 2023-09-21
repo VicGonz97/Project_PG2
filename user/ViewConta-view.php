@@ -4,11 +4,11 @@
 
     if (isset($_POST['id_del'])) {
         $id_user = MysqlQuery::RequestPost('id_del');
-        if (MysqlQuery::Eliminar("contribuyente", "id_contr='$id_user'")) {
+        if (MysqlQuery::Eliminar("contabilidad", "id_contabilidad='$id_user'")) {
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="text-center">Contribuyente ELIMINADO</h4>
+                    <h4 class="text-center">COCODE ELIMINADO</h4>
                     <p class="text-center">
                         El usuario fue eliminado del sistema con éxito.
                     </p>
@@ -27,7 +27,7 @@
         }
     }
 
-    $num_user = Mysql::consulta("SELECT * FROM contribuyente");
+    $num_user = Mysql::consulta("SELECT * FROM contabilidad");
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
@@ -50,7 +50,7 @@
                     $regpagina = 15;
                     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-                    $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contribuyente LIMIT $inicio, $regpagina");
+                    $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contabilidad LIMIT $inicio, $regpagina");
 
                     $totalregistros = mysqli_query($mysqli, "SELECT FOUND_ROWS()");
                     $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
@@ -64,10 +64,8 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Apellidos</th>
-                                    <th class="text-center">Fecha de nacimiento</th>
-                                    <th class="text-center">Edad</th>
-                                    <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
+                                    <th class="text-center">Cantidad</th>
                                     <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
@@ -80,16 +78,14 @@
                                         <td class="text-center"><?php echo $ct; ?></td>
                                         <td class="text-center"><?php echo $row['nombre']; ?></td>
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
-                                        <td class="text-center"><?php echo $row['fecha_nacimiento']; ?></td>
-                                        <td class="text-center"><?php echo $row['edad']; ?></td>
-                                        <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
+                                        <td class="text-center"><?php echo $row['cantidad']; ?></td>
                                         <td class="text-center">
                                             <form action="" method="POST" style="display: inline-block;">
-                                                <input type="hidden" name="id_del" value="<?php echo $row['id_contr']; ?>">
+                                                <input type="hidden" name="id_del" value="<?php echo $row['id_contabilidad']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             </form>
-                                            <a href="./index.php?view=UpdateContr&id=<?php echo $row['id_contr']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
+
                                         </td>
 
                                     </tr>
@@ -100,7 +96,7 @@
                                 ?>
                             </tbody>
                         </table>
-                        <a href="./index.php?view=AddContr" class="btn btn-primary">Regresar</a>
+                        <a href="./index.php?view=AddConta" class="btn btn-primary">Regresar</a>
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
@@ -154,6 +150,19 @@
     </div>
 <?php
 } else {
-
+?>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="./img/Guatemala.png" alt="Image" class="img-responsive animated slideInDown" /><br>
+            </div>
+            <div class="col-sm-7 animated flip">
+                <h1 class="text-danger">Lo sentimos esta página es solamente para el COCODE a Cargo</h1>
+                <h3 class="text-info text-center">Inicia sesión como COCODE para poder acceder</h3>
+            </div>
+            <div class="col-sm-1">&nbsp;</div>
+        </div>
+    </div>
+<?php
 }
 ?>
