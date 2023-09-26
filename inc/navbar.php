@@ -10,12 +10,12 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 <span class="sr-only">toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-                <span class="icon-bar"></span> 
+                <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="index.php"><i class=" "></i>&nbsp;&nbsp;COCODE</a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <?php if (isset($_SESSION['tipo']) && isset($_SESSION['nombre'])): ?>
+            <?php if (isset($_SESSION['tipo']) && isset($_SESSION['nombre'])) : ?>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -23,7 +23,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                         </a>
                         <ul class="dropdown-menu">
                             <!-- COCODE -->
-                            <?php if ($_SESSION['tipo'] == "user"): ?>
+                            <?php if ($_SESSION['tipo'] == "user") : ?>
 
                                 <li>
                                     <a href="./index.php?view=configuracion"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Configuracion</a>
@@ -31,15 +31,16 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                             <?php endif; ?>
 
                             <!-- admins -->
-                            <?php if ($_SESSION['tipo'] == "admin"): ?>
+                            <?php if ($_SESSION['tipo'] == "admin") : ?>
+
                                 <li>
-                                    <a href="admin.php?view=users"><span class="glyphicon glyphicon-user"></span> &nbsp;Administrar Usuarios del COCODE</a>
-                                </li>
-                                <li>
-                                    <a href="admin.php?view=admin"><span class="glyphicon glyphicon-user"></span> &nbsp;Administrar Administradores</a>
+                                    <a href="admin.php?view=admin"><span class="glyphicon glyphicon-user"></span> &nbsp;Administrar Usuarios</a>
                                 </li>
                                 <li>
                                     <a href="admin.php?view=config"><i class="fa fa-cogs"></i> &nbsp; Configuracion</a>
+                                </li>
+                                <li>
+                                    <a href="./index.php?view=registro"><i class="fa fa-users"></i>&nbsp;&nbsp;Registro</a>
                                 </li>
                             <?php endif; ?>
                             <li class="divider"></li>
@@ -64,10 +65,8 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 <li>
                     <a href="./index.php?view=reportes"><span class=""></span>&nbsp;&nbsp;Reportes</a>
                 </li>
-                <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])): ?>
-                    <li>
-                        <a href="./index.php?view=registro"><i class=""></i>&nbsp;&nbsp;Crear usuario</a>
-                    </li>
+                <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
+
                     <li>
                         <a href="#" data-toggle="modal" data-target="#modalLog"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Iniciar sesión</a>
                     </li>
@@ -88,17 +87,18 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
             <form action="" method="POST" style="margin: 20px;">
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-user"></span>&nbsp;Nombre Usuario</label>
-                    <input type="text" class="form-control" name="nombre_login" placeholder="Escribe tu nombre" required=""/>
+                    <input type="text" class="form-control" name="nombre_login" placeholder="Escribe tu nombre" required="" />
                 </div>
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-lock"></span>&nbsp;Contraseña</label>
-                    <input type="password" class="form-control" name="contrasena_login" placeholder="Escribe tu contraseña" required=""/>
+                    <input type="password" class="form-control" name="contrasena_login" placeholder="Escribe tu contraseña" required="" />
                 </div>
-                <p>¿Cómo iniciarás sesión?</p>
+
+                <p>¿Cómo iniciaras sesión?</p>
                 <div class="radio">
                     <label>
                         <input type="radio" name="optionsRadios" value="user" checked>
-                        COCODE
+                        Usuario
                     </label>
                 </div>
                 <div class="radio">
@@ -112,13 +112,9 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>
-            <div class="modal-footer">
-                <a href="#" data-toggle="modal" data-target="#modalOlvido">Olvidé mi usuario o contraseña</a>
-            </div>
         </div>
     </div>
 </div>
-
 <!-- Modal de recuperación de usuario o contraseña -->
 <div class="modal fade" tabindex="-1" role="dialog" id="modalOlvido" aria-hidden="true">
     <div class="modal-dialog modal-sm">
@@ -130,7 +126,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
             <form action="recuperar_usuario_contrasena.php" method="POST" style="margin: 20px;">
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-envelope"></span>&nbsp;Correo Electrónico</label>
-                    <input type="email" class="form-control" name="correo_recuperacion" placeholder="Escribe tu correo electrónico" required=""/>
+                    <input type="email" class="form-control" name="correo_recuperacion" placeholder="Escribe tu correo electrónico" required="" />
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm">Recuperar</button>

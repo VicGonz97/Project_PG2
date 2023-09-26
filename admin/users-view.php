@@ -83,7 +83,7 @@
                                         <th class="text-center">#</th>
                                         <th class="text-center">Nombre completo</th>
                                         <th class="text-center">Nombre de usuario</th>
-                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Correo electronico</th>
                                         <th class="text-center">Telefono</th>
                                         <th class="text-center">DPI</th>
                                         <th class="text-center">Cargo</th>

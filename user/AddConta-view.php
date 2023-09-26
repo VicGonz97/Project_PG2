@@ -68,7 +68,7 @@
                                 </tbody>
                             </table>
                             <button type="submit" class="btn btn-primary">Registrar</button> <!-- Agregamos un botón para registrar la asistencia -->
-                            <a href="./index.php?view=ViewConta" class="btn btn-info">Ver caja</a>
+                            <a href="./index.php?view=ViewConta" class="btn btn-info">Ver Contribuciones</a>
                             <a href="./index.php" class="btn btn-danger">Cancelar</a>
                         </form>
 

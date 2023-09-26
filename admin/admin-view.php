@@ -10,9 +10,9 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="text-center">ADMINISTRADOR ELIMINADO</h4>
+                    <h4 class="text-center">USUARIO ELIMINADO</h4>
                     <p class="text-center">
-                        El administrador fue eliminado del sistema con éxito
+                        El Usuario fue eliminado del sistema con éxito
                     </p>
                 </div>
             ';
@@ -22,7 +22,7 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h4 class="text-center">OCURRIÓ UN ERROR</h4>
                     <p class="text-center">
-                        No hemos podido eliminar el administrador
+                        No hemos podido eliminar el usuario
                     </p>
                 </div>
             ';
@@ -45,7 +45,7 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
             <img src="./img/Guatemala.png" alt="Imagen" class="img-responsive animated flipInY">
         </div>
         <div class="col-sm-10">
-            <p class="lead text-info"> Administradores registrados! </p>
+            <p class="lead text-info"> Bienvenido ! Por politica del COCODE solo deberia de existir un usuario, si hay mas de un usuario porfavor verificar con el miembro del COCODE y puede eliminar el ususario </p>
         </div>
     </div>
 </div>
@@ -97,7 +97,10 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
                             <th class="text-center">#</th>
                             <th class="text-center">Nombre completo</th>
                             <th class="text-center">Nombre de usuario</th>
-                            <th class="text-center">Email</th>
+                            <th class="text-center">Correo electronico</th>
+                            <th class="text-center">Telefono</th>
+                            <th class="text-center">DPI</th>
+                            <th class="text-center">Cargo</th>
                             <th class="text-center">Opciones</th>
                         </tr>
                     </thead>
@@ -111,6 +114,9 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
                             <td class="text-center"><?php echo $row['nombre_completo']; ?></td>
                             <td class="text-center"><?php echo $row['nombre_admin']; ?></td>
                             <td class="text-center"><?php echo $row['email_admin']; ?></td>
+                            <td class="text-center"><?php echo $row['telefono']; ?></td>
+                            <td class="text-center"><?php echo $row['dpi']; ?></td>
+                            <td class="text-center"><?php echo $row['rol']; ?></td>
                             <td class="text-center">
                                 <form action="" method="POST" style="display: inline-block;">
                                     <input type="hidden" name="id_del" value="<?php echo $row['id_admin']; ?>">

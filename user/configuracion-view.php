@@ -93,24 +93,34 @@
             <form action="" method="post" role="form">
               <div class="form-group">
                 <label class="text-primary"><i class="fa fa-male"></i>&nbsp;&nbsp;Nombre completo</label>
-                <input type="text" class="form-control" placeholder="Nombre completo" name="name_complete_update" required="" pattern="[a-zA-Z ]{1,40}" title="Nombre Apellido" maxlength="40">
+                <input type="text" class="form-control" placeholder="Nombre completo" name="name_complete_update" required="" pattern="[a-zA-Z ]{1,40}" title="Nombre Apellido" maxlength="34">
               </div>
               <div class="form-group">
                 <label class="text-danger"><i class="fa fa-user"></i>&nbsp;&nbsp;Nombre de usuario actual</label>
-                <input type="text" class="form-control" placeholder="Nombre de usuario actual" name="old_user_update" required="" pattern="[a-zA-Z0-9 ]{1,30}" title="Ejemplo7" maxlength="20">
+                <input type="text" class="form-control" placeholder="Nombre de usuario actual" name="old_user_update" required="" pattern="[a-zA-Z0-9 ]{6,30}" title="Usuario actual no coicide" maxlength="34">
               </div>
               <div class="form-group  has-success has-feedback">
                 <label class="text-primary"><i class="fa fa-user"></i>&nbsp;&nbsp;Nombre de usuario nuevo</label>
-                <input type="text" class="form-control" id="input_user" placeholder="Nombre de usuario nuevo" name="new_user_update" required="" pattern="[a-zA-Z0-9 ]{1,30}" title="Ejemplo7" maxlength="20">
+                <input type="text" class="form-control" id="input_user" placeholder="Nombre de usuario nuevo" name="new_user_update" required="" pattern="[a-zA-Z0-9 ]{6,30}" title="El nombre de usuario debe tener al menos 6 caracteres y máximo 30 caracteres" maxlength="34">
                 <div id="com_form"></div>
               </div>
               <div class="form-group">
                 <label class="text-danger"><i class="fa fa-key"></i>&nbsp;&nbsp;Contraseña actual</label>
-                <input type="password" class="form-control" placeholder="Contraseña actual" name="old_pass_update" required="">
+                <div class="input-group">
+                  <input type="password" class="form-control" placeholder="Contraseña actual" name="old_pass_update" id="oldPass" required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" title="Contraseña actual no coincide" maxlength="34">
+                  <span class="input-group-addon" id="showHideOldPassword">
+                    <i class="fa fa-eye-slash" id="eyeIconOld"></i>
+                  </span>
+                </div>
               </div>
               <div class="form-group">
                 <label class="text-primary"><i class="fa fa-unlock-alt"></i>&nbsp;&nbsp;Contraseña nueva</label>
-                <input type="password" class="form-control" placeholder="Nueva Contraseña" name="new_pass_update" required="">
+                <div class="input-group">
+                  <input type="password" class="form-control" placeholder="Nueva Contraseña" name="new_pass_update" id="newPass" required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$" title="La contraseña debe tener al menos 8 caracteres de longitud, incluir al menos una letra mayúscula, una letra minúscula y un número" maxlength="34">
+                  <span class="input-group-addon" id="showHidePassword">
+                    <i class="fa fa-eye-slash" id="eyeIcon"></i>
+                  </span>
+                </div>
               </div>
               <div class="form-group">
                 <label class="text-primary"><i class="fa fa-envelope-o"></i>&nbsp;&nbsp;Correo Electronico</label>
@@ -118,15 +128,15 @@
               </div>
               <div class="form-group">
                 <label class="text-primary"><i class="fa fa-phone"></i>&nbsp;&nbsp;Telefono</label>
-                <input type="text" class="form-control" placeholder="8 Digitos" name="telefono1_update" required="">
+                <input type="text" class="form-control" placeholder="8 Digitos" name="telefono1_update" required="" pattern="[0-9]{8}" maxlength="8">
               </div>
               <div class="form-group">
                 <label class="text-primary"><i class="fa fa-id-card"></i>&nbsp;&nbsp;DPI</label>
-                <input type="text" class="form-control" placeholder="13 Digitos" name="dpi1_update" required="">
+                <input type="text" class="form-control" placeholder="13 Digitos" name="dpi1_update" required="" pattern="[0-9]{13}" maxlength="13">
               </div>
               <div class="form-group">
                 <label class="text-primary"><i class="fa fa-briefcase"></i>&nbsp;&nbsp;Cargo</label>
-                <input type="text" class="form-control" placeholder="Rol" name="rol1_update" required="">
+                <input type="text" class="form-control" placeholder="Cargo" name="rol1_update" required="">
               </div>
               <div class="text-center well">
                 <button type="submit" class="btn btn-info">Actualizar datos</button>
@@ -170,9 +180,44 @@
   </div>
 <?php
 } else {
-
 }
 ?>
+
+<script>
+  var newPassField = document.getElementById("newPass");
+  var eyeIcon = document.getElementById("eyeIcon");
+
+  document.getElementById("showHidePassword").addEventListener("click", function() {
+    if (newPassField.type === "password") {
+      newPassField.type = "text";
+      eyeIcon.classList.remove("fa-eye-slash");
+      eyeIcon.classList.add("fa-eye");
+    } else {
+      newPassField.type = "password";
+      eyeIcon.classList.remove("fa-eye");
+      eyeIcon.classList.add("fa-eye-slash");
+    }
+  });
+</script>
+
+<script>
+  var oldPassField = document.getElementById("oldPass");
+  var eyeIconOld = document.getElementById("eyeIconOld");
+
+  document.getElementById("showHideOldPassword").addEventListener("click", function() {
+    if (oldPassField.type === "password") {
+      oldPassField.type = "text";
+      eyeIconOld.classList.remove("fa-eye-slash");
+      eyeIconOld.classList.add("fa-eye");
+    } else {
+      oldPassField.type = "password";
+      eyeIconOld.classList.remove("fa-eye");
+      eyeIconOld.classList.add("fa-eye-slash");
+    }
+  });
+</script>
+
+
 <script>
   $(document).ready(function() {
     $("#input_user").keyup(function() {

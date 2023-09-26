@@ -3,7 +3,8 @@
 class Mysql {
 
     public static function Conectar(){
-        if(!$con=  mysqli_connect(SERVER,USER,PASS,BD)){
+        // Verificar si se puede establecer una conexión a la base de datos
+        if (!$con = mysqli_connect(SERVER, USER, PASS, BD)) {
             echo "Error en el servidor, verifique sus datos";
         }
         /* Codificar la información de la base de datos a UTF8*/
@@ -12,6 +13,7 @@ class Mysql {
     }
 
     public static function consulta($query) {
+        // Realizar una consulta SQL y manejar errores si los hay
         if (!$consul = mysqli_query(Mysql::Conectar(), $query)) {
             echo 'Error en la consulta SQL ejecutada';
         }
@@ -19,7 +21,6 @@ class Mysql {
     }
 
 }
-
 class MysqlQuery {
 
     public static function limpiarCadena($valor) {

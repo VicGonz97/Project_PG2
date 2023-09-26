@@ -26,18 +26,20 @@ CREATE TABLE `administrador` (
   `nombre_completo` varchar(100) NOT NULL,
   `nombre_admin` varchar(60) NOT NULL,
   `clave` text NOT NULL,
-  `email_admin` varchar(100) NOT NULL
+  `email_admin` varchar(100) NOT NULL,
+  `telefono` text COLLATE utf8_spanish2_ci NOT NULL,
+  `dpi` text COLLATE utf8_spanish2_ci NOT NULL,
+   `rol` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `administrador`
 --
 
-INSERT INTO `administrador` (`id_admin`, `nombre_completo`, `nombre_admin`, `clave`, `email_admin`) VALUES
-(1, 'COCODE Administrador', 'Administrador', '2a2e9a58102784ca18e2605a4e727b5f', 'administrador@gmail.com');
+INSERT INTO `administrador` (`id_admin`, `nombre_completo`, `nombre_admin`, `clave`, `email_admin`, `telefono`, `dpi`, `rol`) VALUES
+(1, 'Victor Gonzalez', 'Cocode2023', '2a2e9a58102784ca18e2605a4e727b5f', 'vgonzalez.vgl57@gmail.com', '50424169', '1111111111111', 'Administrador');
 
--- --------------------------------------------------------
-
+-- -------------------------------------------------
 --
 -- Estructura de tabla para la tabla `cliente`
 --
@@ -116,7 +118,7 @@ CREATE TABLE contabilidad (
 --
 ALTER TABLE `administrador`
   ADD PRIMARY KEY (`id_admin`),
-  ADD UNIQUE KEY `correo` (`email_admin`);
+
 
 --
 -- Indices de la tabla `usuario`

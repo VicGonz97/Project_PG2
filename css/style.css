@@ -23,3 +23,16 @@ navbar{
 	background-color:#040D12;
 }
 
+
+#showPasswordToggle {
+    cursor: pointer;
+}
+
+#eyeIcon {
+    cursor: pointer;
+    color: #333; /* Color del ícono inicial (oculto) */
+}
+
+#eyeIcon.show-password {
+    color: #007bff; /* Color del ícono cuando se muestra la contraseña */
+}
