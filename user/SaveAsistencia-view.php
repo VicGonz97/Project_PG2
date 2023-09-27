@@ -15,6 +15,7 @@ $errorMessage = ''; // Inicializar el mensaje de error
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Verificar si se ha iniciado sesión y el usuario tiene permiso para registrar asistencia
     if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
+
         // Verificar si se han seleccionado contribuyentes para marcar asistencia
         if (isset($_POST['asistencia']) && is_array($_POST['asistencia']) && !empty($_POST['asistencia'])) {
             // Crear una conexión a la base de datos
@@ -26,41 +27,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Obtener la fecha actual en el formato deseado (Y-m-d H:i:s)
             $fecha_actual = date('Y-m-d H:i:s');
 
-            // Iterar a través de los contribuyentes seleccionados y registrar la asistencia
-            foreach ($_POST['asistencia'] as $contribuyenteId) {
-                // Obtener los datos del contribuyente (nombre, apellido, dpi)
-                $query_contribuyente = "SELECT nombre, apellido, dpi FROM contribuyente WHERE id_contr = ?";
-                if ($stmt_contribuyente = mysqli_prepare($mysqli, $query_contribuyente)) {
-                    mysqli_stmt_bind_param($stmt_contribuyente, "i", $contribuyenteId);
-                    mysqli_stmt_execute($stmt_contribuyente);
-                    mysqli_stmt_store_result($stmt_contribuyente);
+            // Obtener todos los contribuyentes de la base de datos
+            $query_contribuyentes = "SELECT id_contr, nombre, apellido, dpi FROM contribuyente";
+            $result_contribuyentes = mysqli_query($mysqli, $query_contribuyentes);
 
-                    if (mysqli_stmt_num_rows($stmt_contribuyente) > 0) {
-                        mysqli_stmt_bind_result($stmt_contribuyente, $nombre, $apellido, $dpi);
-                        mysqli_stmt_fetch($stmt_contribuyente);
+            if (!$result_contribuyentes) {
+                $errorMessage = "Error al obtener la lista de contribuyentes: " . mysqli_error($mysqli);
+            } else {
+                while ($row_contribuyente = mysqli_fetch_assoc($result_contribuyentes)) {
+                    $contribuyenteId = $row_contribuyente['id_contr'];
 
-                        // Preparar la consulta SQL para insertar asistencia con nombre, apellido, dpi
-                        $query_asistencia = "INSERT INTO asistencia (nombre, apellido, dpi, asistio, fecha_registro) VALUES (?, ?, ?, 1, ?)";
+                    // Verificar si este contribuyente se seleccionó en el formulario
+                    $asistio = in_array($contribuyenteId, $_POST['asistencia']) ? 1 : 0;
 
-                        // Preparar una sentencia SQL usando consultas preparadas
-                        if ($stmt_asistencia = mysqli_prepare($mysqli, $query_asistencia)) {
-                            mysqli_stmt_bind_param($stmt_asistencia, "ssss", $nombre, $apellido, $dpi, $fecha_actual);
-                            mysqli_stmt_execute($stmt_asistencia);
+                    // Obtener los datos del contribuyente desde la base de datos
+                    $nombre = $row_contribuyente['nombre'];
+                    $apellido = $row_contribuyente['apellido'];
+                    $dpi = $row_contribuyente['dpi'];
 
-                            // Cerrar la sentencia de asistencia
-                            mysqli_stmt_close($stmt_asistencia);
-                        } else {
-                            $errorMessage = "Error en la consulta preparada de asistencia: " . mysqli_error($mysqli);
-                        }
+                    // Preparar la consulta SQL para insertar asistencia con nombre, apellido, dpi y asistencia
+                    $query_asistencia = "INSERT INTO asistencia (nombre, apellido, dpi, asistio, fecha_registro) VALUES (?, ?, ?, ?, ?)";
+
+                    // Preparar una sentencia SQL usando consultas preparadas
+                    if ($stmt_asistencia = mysqli_prepare($mysqli, $query_asistencia)) {
+                        mysqli_stmt_bind_param($stmt_asistencia, "sssis", $nombre, $apellido, $dpi, $asistio, $fecha_actual);
+                        mysqli_stmt_execute($stmt_asistencia);
+
+                        // Cerrar la sentencia de asistencia
+                        mysqli_stmt_close($stmt_asistencia);
                     } else {
-                        $errorMessage = "No se encontraron datos para el contribuyente con ID: " . $contribuyenteId;
+                        $errorMessage = "Error en la consulta preparada de asistencia: " . mysqli_error($mysqli);
                     }
-
-                    // Cerrar la sentencia de contribuyente
-                    mysqli_stmt_close($stmt_contribuyente);
-                } else {
-                    $errorMessage = "Error en la consulta preparada de contribuyente: " . mysqli_error($mysqli);
                 }
+
+                // Liberar el resultado de la consulta de contribuyentes
+                mysqli_free_result($result_contribuyentes);
             }
 
             // Cerrar la conexión a la base de datos
@@ -80,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!-- Mostrar mensajes de éxito o error -->
 <?php if (!empty($exitoMessage)) : ?>
-    <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+    <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="text-center">ASISTENCIA</h4>
         <p class="text-center">
@@ -90,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <?php endif; ?>
 
 <?php if (!empty($errorMessage)) : ?>
-    <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+    <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
         <h4 class="text-center">OCURRIÓ UN ERROR</h4>
         <p class="text-center">

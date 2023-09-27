@@ -66,6 +66,7 @@
                                     <th class="text-center">Apellidos</th>
                                     <th class="text-center">DPI</th>
                                     <th class="text-center">Cantidad</th>
+                                    <th class="text-center">Fecha</th>
                                     <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
@@ -80,11 +81,14 @@
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
                                         <td class="text-center"><?php echo $row['cantidad']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_registro']; ?></td>
                                         <td class="text-center">
+                                        <a href="./lib/pdf.php?id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                                             <form action="" method="POST" style="display: inline-block;">
                                                 <input type="hidden" name="id_del" value="<?php echo $row['id_contabilidad']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             </form>
+                                            <a href="./index.php?view=UpdateConta&id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
 
                                         </td>
 

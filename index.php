@@ -33,7 +33,7 @@ header('Content-Type: text/html; charset=UTF-8');
         $content = $_GET['view'];
         $WhiteList = [
             "index", "cocode", "vcocode", "cupdate", "contribuyente", "asistencia", "contabilidad", "reportes", "registro", "configuracion", "AddContr", "ViewContr", "UpdateContr", "RegAsistencia", "SaveAsistencia",
-            "ViewAsistencia", "AddConta", "SaveConta", "ViewConta", "EliminarTodo"
+            "ViewAsistencia", "AddConta", "SaveConta", "ViewConta", "EliminarTodo", "UpdateConta",
         ];
         if (in_array($content, $WhiteList) && is_file("./user/" . $content . "-view.php")) {
             include "./user/" . $content . "-view.php";

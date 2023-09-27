@@ -1,10 +1,8 @@
 <?php
-require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
+require_once './lib/config.php'; // Incluye tu archivo de configuración de la base de datos
 
 $exitoMessage = ''; // Inicializa la variable de éxito
 $errorMessage = ''; // Inicializa la variable de error
-$filtrado = false; // Bandera para verificar si se ha enviado el formulario de filtro
-$whereClause = ""; // Inicializa la variable $whereClause fuera del bloque de filtro
 
 if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -34,22 +32,6 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         }
     }
 
-    // Procesar el filtro de fecha si se envió el formulario
-    if (isset($_GET['fecha_inicio']) && isset($_GET['fecha_fin'])) {
-        $fecha_inicio = $_GET['fecha_inicio'];
-        $fecha_fin = $_GET['fecha_fin'];
-
-        if (!empty($fecha_inicio) && !empty($fecha_fin)) {
-            $filtrado = true; // Establecer la bandera en true
-            // Validar y formatear las fechas (asegúrate de que estén en el formato correcto para tu base de datos)
-            $fecha_inicio = date('Y-m-d', strtotime($fecha_inicio));
-            $fecha_fin = date('Y-m-d', strtotime($fecha_fin));
-
-            // Construir la cláusula WHERE para filtrar por fecha
-            $whereClause = "WHERE fecha_registro BETWEEN '$fecha_inicio' AND '$fecha_fin'";
-        }
-    }
-
     // Consulta SQL para recuperar los registros
     $mysqli = mysqli_connect(SERVER, USER, PASS, BD);
     mysqli_set_charset($mysqli, "utf8");
@@ -58,14 +40,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     $regpagina = 15;
     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-    // Modificar la consulta SQL para incluir la variable $whereClause
-    if ($filtrado) {
-        // Si se filtraron los resultados, utiliza los resultados almacenados en la variable
-        $selusers = $resultadosFiltrados; // Cambia "resultadosFiltrados" al nombre real de la variable donde almacenaste los resultados
-    } else {
-        // Si no se filtraron los resultados, ejecuta la consulta normal
-        $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM asistencia LIMIT $inicio, $regpagina");
-    }
+    $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM asistencia LIMIT $inicio, $regpagina");
 
     // Obtener el número total de registros para paginación
     $totalregistros = mysqli_query($mysqli, "SELECT FOUND_ROWS()");
@@ -73,27 +48,6 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
 
     $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
     ?>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <!-- Mostrar el formulario de filtro solo si no se ha filtrado aún -->
-                <?php if (!$filtrado) : ?>
-                    <form method="GET">
-                        <div class="form-group">
-                            <label for="fecha_inicio">Fecha de Inicio:</label>
-                            <input type="date" class="form-control" name="fecha_inicio" id="fecha_inicio">
-                        </div>
-                        <div class="form-group">
-                            <label for="fecha_fin">Fecha de Fin:</label>
-                            <input type="date" class="form-control" name="fecha_fin" id="fecha_fin">
-                        </div>
-                        <button type="submit" class="btn btn-primary">Filtrar por Fecha</button>
-                    </form>
-                <?php endif; ?>
-            </div>
-        </div>
-    </div>
 
     <div class="container">
         <div class="row">
@@ -148,7 +102,8 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                             </tbody>
                         </table>
                         <a href="./index.php?view=RegAsistencia" class="btn btn-primary">Regresar</a>
-                        <a href="" class="btn btn-primary">Generar PDF</a>
+                        <!-- Agregamos un botón para generar el PDF -->
+                        <a href="./lib/pdf_asistencia.php" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar PDF</a>
                         <a href="./index.php?view=EliminarTodo" class="btn btn-danger">Eliminar Todo</a>
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>

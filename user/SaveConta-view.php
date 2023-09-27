@@ -16,16 +16,20 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                 $id_contr = substr($key, 9); // Obtén el ID del contribuyente desde el nombre del campo
                 $cantidad = (float)$value; // Convierte la cantidad a un número decimal
 
-                if ($cantidad > 0) { // Check if a valid quantity is entered
-                    // Inserta los datos en la base de datos
-                    $query = "INSERT INTO contabilidad (nombre, apellido, dpi, cantidad) SELECT nombre, apellido, dpi, $cantidad FROM contribuyente WHERE id_contr = $id_contr";
-                    if (mysqli_query($mysqli, $query)) {
-                        // Registro exitoso
-                        $atLeastOneEntry = true; // Set the flag to true if at least one entry was made
-                    } else {
-                        // Error en el registro
-                        $errorMessage = 'Error en el registro: ' . mysqli_error($mysqli);
-                    }
+                // Ajusta la cantidad a cero si no se ingresó ninguna cantidad
+                if ($cantidad <= 0) {
+                    $cantidad = 0;
+                }
+
+                // Inserta los datos en la base de datos
+                $query = "INSERT INTO contabilidad (nombre, apellido, dpi, cantidad) SELECT nombre, apellido, dpi, $cantidad FROM contribuyente WHERE id_contr = $id_contr";
+                
+                if (mysqli_query($mysqli, $query)) {
+                    // Registro exitoso
+                    $atLeastOneEntry = true; // Set the flag to true if at least one entry was made
+                } else {
+                    // Error en el registro
+                    $errorMessage = 'Error en el registro: ' . mysqli_error($mysqli);
                 }
             }
         }
