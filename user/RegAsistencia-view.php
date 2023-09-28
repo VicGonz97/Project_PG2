@@ -88,7 +88,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=RegAsistencia&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -97,9 +97,9 @@
                             <?php
                             for ($i = 1; $i <= $numeropaginas; $i++) {
                                 if ($pagina == $i) {
-                                    echo '<li class="active"><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="active"><a href="./index.php?view=RegAsistencia&pagina=' . $i . '">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li><a href="./index.php?view=RegAsistencia&pagina=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -112,7 +112,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=RegAsistencia&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

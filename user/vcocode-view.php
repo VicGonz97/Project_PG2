@@ -87,10 +87,10 @@
                                             </form>
                                             <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
                                         </td>
-                                        
+
                                     </tr>
                                 <?php
-                            
+
                                     $ct++;
                                 endwhile;
                                 ?>
@@ -101,6 +101,7 @@
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
+                <!-- Aquí colocas el código de paginación -->
                 <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
@@ -112,19 +113,18 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=vcocode&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
-                        
                                 </li>
                             <?php endif; ?>
 
                             <?php
                             for ($i = 1; $i <= $numeropaginas; $i++) {
                                 if ($pagina == $i) {
-                                    echo '<li class="active"><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="active"><a href="./index.php?view=vcocode&pagina=' . $i . '">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li><a href="./index.php?view=vcocode&pagina=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -137,7 +137,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=vcocode&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>

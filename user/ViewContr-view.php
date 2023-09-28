@@ -47,7 +47,7 @@
                     mysqli_set_charset($mysqli, "utf8");
 
                     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-                    $regpagina = 15;
+                    $regpagina =15;
                     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
                     $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contribuyente LIMIT $inicio, $regpagina");
@@ -101,11 +101,14 @@
                             </tbody>
                         </table>
                         <a href="./index.php?view=AddContr" class="btn btn-primary">Regresar</a>
+                        
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
-                <?php if ($numeropaginas >= 1) : ?>
+                
+            <!-- Aquí colocas el código de paginación -->
+            <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
                             <?php if ($pagina == 1) : ?>
@@ -116,19 +119,18 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=ViewContr&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
-
                                 </li>
                             <?php endif; ?>
 
                             <?php
                             for ($i = 1; $i <= $numeropaginas; $i++) {
                                 if ($pagina == $i) {
-                                    echo '<li class="active"><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="active"><a href="./index.php?view=ViewContr&pagina=' . $i . '">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li><a href="./index.php?view=ViewContr&pagina=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -141,7 +143,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=ViewContr&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -152,8 +154,10 @@
             </div>
         </div>
     </div>
-<?php
+    <?php
+
 } else {
 
 }
 ?>
+<br>

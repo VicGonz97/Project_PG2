@@ -63,7 +63,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                     <a href="./index.php?view=AddConta"><span class=""></span>&nbsp;&nbsp;Contabilidad</a>
                 </li>
                 <li>
-                    <a href="./index.php?view=reportes"><span class=""></span>&nbsp;&nbsp;Reportes</a>
+                    <a href="./index.php?view=AddReporte"><span class=""></span>&nbsp;&nbsp;Reportes</a>
                 </li>
                 <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
 

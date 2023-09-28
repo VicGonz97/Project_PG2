@@ -76,7 +76,8 @@
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
-                <?php if ($numeropaginas >= 1) : ?>
+                 <!-- Aquí colocas el código de paginación -->
+                 <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
                             <?php if ($pagina == 1) : ?>
@@ -87,7 +88,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=AddConta&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -96,9 +97,9 @@
                             <?php
                             for ($i = 1; $i <= $numeropaginas; $i++) {
                                 if ($pagina == $i) {
-                                    echo '<li class="active"><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="active"><a href="./index.php?view=AddConta&pagina=' . $i . '">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li><a href="./admin.php?view=users&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li><a href="./index.php?view=AddConta&pagina=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -111,7 +112,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                    <a href="./admin.php?view=users&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=AddConta&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -124,10 +125,25 @@
     </div>
     <?php
 } else {
+?>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="./img/Guatemala.png" alt="Image" class="img-responsive" /><br>
 
+            </div>
+            <div class="col-sm-7 text-center">
+                <h1 class="text-danger">Lo sentimos esta página es solamente para usuarios registrados en el COCODE</h1>
+                <li>
+                    <a href="" data-toggle="modal" data-target="#modalLog"><span class=" "></span>&nbsp;&nbsp;Inicia sesión aqui!. Para poder acceder</a>
+                </li>
+            </div>
+            <div class="col-sm-1">&nbsp;</div>
+        </div>
+    </div>
+<?php
 }
 ?>
-
 
 <script type="text/javascript">
     $(document).ready(function() {

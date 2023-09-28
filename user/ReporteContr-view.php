@@ -2,32 +2,8 @@
     <?php
     require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
 
-    if (isset($_POST['id_del'])) {
-        $id_user = MysqlQuery::RequestPost('id_del');
-        if (MysqlQuery::Eliminar("contabilidad", "id_contabilidad='$id_user'")) {
-            echo '
-                <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="text-center">COCODE ELIMINADO</h4>
-                    <p class="text-center">
-                        El usuario fue eliminado del sistema con éxito.
-                    </p>
-                </div>
-            ';
-        } else {
-            echo '
-                <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-                    <p class="text-center">
-                        No hemos podido eliminar el usuario.
-                    </p>
-                </div>
-            ';
-        }
-    }
-
-    $num_user = Mysql::consulta("SELECT * FROM contabilidad");
+    
+    $num_user = Mysql::consulta("SELECT * FROM contribuyente");
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
@@ -50,7 +26,7 @@
                     $regpagina = 15;
                     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-                    $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contabilidad LIMIT $inicio, $regpagina");
+                    $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contribuyente LIMIT $inicio, $regpagina");
 
                     $totalregistros = mysqli_query($mysqli, "SELECT FOUND_ROWS()");
                     $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
@@ -64,10 +40,11 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Nombre</th>
                                     <th class="text-center">Apellidos</th>
+                                    <th class="text-center">Fecha de nacimiento</th>
+                                    <th class="text-center">Edad</th>
+                                    <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
-                                    <th class="text-center">Cantidad</th>
-                                    <th class="text-center">Fecha</th>
-                                    <th class="text-center">Opciones</th>
+
                                 </tr>
                             </thead>
                             <tbody>
@@ -79,19 +56,11 @@
                                         <td class="text-center"><?php echo $ct; ?></td>
                                         <td class="text-center"><?php echo $row['nombre']; ?></td>
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
+                                        <td class="text-center"><?php echo $row['fecha_nacimiento']; ?></td>
+                                        <td class="text-center"><?php echo $row['edad']; ?></td>
+                                        <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
-                                        <td class="text-center"><?php echo $row['cantidad']; ?></td>
-                                        <td class="text-center"><?php echo $row['fecha_registro']; ?></td>
-                                        <td class="text-center">
-                                            <a href="./lib/pdf.php?id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
-                                            <form action="" method="POST" style="display: inline-block;">
-                                                <input type="hidden" name="id_del" value="<?php echo $row['id_contabilidad']; ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form>
-                                            <a href="./index.php?view=UpdateConta&id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
-
-                                        </td>
-
+                                        
                                     </tr>
                                 <?php
 
@@ -100,13 +69,15 @@
                                 ?>
                             </tbody>
                         </table>
-                        <a href="./index.php?view=AddConta" class="btn btn-primary">Regresar</a>
+                        <a href="./index.php?view=AddReporte" class="btn btn-success">Regresar</a>
+                        <a href="./index.php?view=AddReporte" class="btn btn-danger">Generar PDF</a>
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
-                 <!-- Aquí colocas el código de paginación -->
-                 <?php if ($numeropaginas >= 1) : ?>
+                
+            <!-- Aquí colocas el código de paginación -->
+            <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
                             <?php if ($pagina == 1) : ?>
@@ -117,7 +88,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=ViewConta&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=ReporteContr&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -126,9 +97,9 @@
                             <?php
                             for ($i = 1; $i <= $numeropaginas; $i++) {
                                 if ($pagina == $i) {
-                                    echo '<li class="active"><a href="./index.php?view=ViewConta&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li class="active"><a href="./index.php?view=ReporteContr&pagina=' . $i . '">' . $i . '</a></li>';
                                 } else {
-                                    echo '<li><a href="./index.php?view=ViewConta&pagina=' . $i . '">' . $i . '</a></li>';
+                                    echo '<li><a href="./index.php?view=ReporteContr&pagina=' . $i . '">' . $i . '</a></li>';
                                 }
                             }
                             ?>
@@ -141,7 +112,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=ViewConta&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                <a href="./index.php?view=ReporteContr&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -152,3 +123,6 @@
             </div>
         </div>
     </div>
+ 
+
+<br><br><br><br>
