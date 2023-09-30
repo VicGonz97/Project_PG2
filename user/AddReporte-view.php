@@ -72,3 +72,5 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $("#fechainput").datepicker();
     });
 </script>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
