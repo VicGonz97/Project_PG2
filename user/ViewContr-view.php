@@ -47,7 +47,7 @@
                     mysqli_set_charset($mysqli, "utf8");
 
                     $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
-                    $regpagina =15;
+                    $regpagina = 15;
                     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
                     $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contribuyente LIMIT $inicio, $regpagina");
@@ -89,7 +89,8 @@
                                                 <input type="hidden" name="id_del" value="<?php echo $row['id_contr']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             </form>
-                                            <a href="./index.php?view=UpdateContr&id=<?php echo $row['id_contr']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
+                                            <a href="./index.php?view=UpdateContr&id=<?php echo $row['id_contr']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
+                                            <a href="./index.php?view=AddContr" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
                                         </td>
 
                                     </tr>
@@ -100,15 +101,16 @@
                                 ?>
                             </tbody>
                         </table>
-                        <a href="./index.php?view=AddContr" class="btn btn-primary">Regresar</a>
-                        
+
+                        <a href="./index.php" class="btn btn-danger">Cancelar</a>
+
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
-                
-            <!-- Aquí colocas el código de paginación -->
-            <?php if ($numeropaginas >= 1) : ?>
+
+                <!-- Aquí colocas el código de paginación -->
+                <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
                             <?php if ($pagina == 1) : ?>
@@ -119,7 +121,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=ViewContr&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=ViewContr&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -143,7 +145,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=ViewContr&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=ViewContr&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -154,10 +156,9 @@
             </div>
         </div>
     </div>
-    <?php
+<?php
 
 } else {
-
 }
 ?>
 <br>

@@ -45,7 +45,7 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
             <img src="./img/Guatemala.png" alt="Imagen" class="img-responsive animated flipInY">
         </div>
         <div class="col-sm-10">
-            <p class="lead text-info"> Bienvenido ! Por politica del COCODE solo deberia de existir un usuario, si hay mas de un usuario porfavor verificar con el miembro del COCODE y puede eliminar el ususario </p>
+            <p class="lead text-info"> Bienvenido Administrador ! Por politica del COCODE solo deberia de existir un usuario, si hay mas de un usuario porfavor verificar con el miembro del COCODE y puede eliminar el ususario </p>
         </div>
     </div>
 </div>

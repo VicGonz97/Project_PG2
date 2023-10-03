@@ -117,7 +117,7 @@ CREATE TABLE contabilidad (
 -- Indices de la tabla `administrador`
 --
 ALTER TABLE `administrador`
-  ADD PRIMARY KEY (`id_admin`),
+  ADD PRIMARY KEY (`id_admin`);
 
 
 --
@@ -167,8 +167,3 @@ ALTER TABLE `contribuyente`
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
-ALTER TABLE asistencia
-ADD CONSTRAINT fk_contribuyente
-FOREIGN KEY (id_contr)
-REFERENCES contribuyente(id_contr)
-ON DELETE CASCADE;

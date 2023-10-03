@@ -89,9 +89,8 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                         </div>
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-info">Registrar Nuevo</button>
-                                                <a href="./index.php?view=vcocode" class="btn btn-info">Miembros del COCODE</a>
-                                                <a href="./index.php" class="btn btn-danger">Cancelar</a>
+                                                <button type="submit" class="btn btn-info">Guardar</button>
+                                                <a href="./index.php?view=vcocode" class="btn btn-danger">Regresar</a>
                                             </div>
                                         </div>
                                     </fieldset>

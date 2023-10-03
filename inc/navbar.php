@@ -51,10 +51,10 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
             <?php endif; ?>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="./index.php?view=cocode"><span class=""></span>&nbsp;&nbsp;Miembros del COCODE</a>
+                    <a href="./index.php?view=vcocode"><span class=""></span>&nbsp;&nbsp;Miembros del COCODE</a>
                 </li>
                 <li>
-                    <a href="./index.php?view=AddContr"><span class=""></span>&nbsp;&nbsp;Contribuyentes</a>
+                    <a href="./index.php?view=ViewContr"><span class=""></span>&nbsp;&nbsp;Contribuyentes</a>
                 </li>
                 <li>
                     <a href="./index.php?view=RegAsistencia"><span class=""></span>&nbsp;&nbsp;Asistencia</a>
@@ -64,6 +64,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 </li>
                 <li>
                     <a href="./index.php?view=AddReporte"><span class=""></span>&nbsp;&nbsp;Reportes</a>
+                    
                 </li>
                 <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
 
@@ -77,13 +78,19 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
 </nav>
 
 <!-- Modal de inicio de sesión -->
+
 <div class="modal fade" tabindex="-1" role="dialog" id="modalLog" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <div class="col-sm-10">
+                    <img src="./img/Guatemala.png" alt="Image" class="img-responsive ">
+                </div>
                 <h4 class="modal-title text-center text-primary" id="myModalLabel">Bienvenido COCODE</h4>
+
             </div>
+
             <form action="" method="POST" style="margin: 20px;">
                 <div class="form-group">
                     <label><span class="glyphicon glyphicon-user"></span>&nbsp;Nombre Usuario</label>
@@ -93,43 +100,8 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                     <label><span class="glyphicon glyphicon-lock"></span>&nbsp;Contraseña</label>
                     <input type="password" class="form-control" name="contrasena_login" placeholder="Escribe tu contraseña" required="" />
                 </div>
-
-                <p>¿Cómo iniciaras sesión?</p>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" value="user" checked>
-                        Usuario
-                    </label>
-                </div>
-                <div class="radio">
-                    <label>
-                        <input type="radio" name="optionsRadios" value="admin">
-                        Administrador
-                    </label>
-                </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-primary btn-sm">Iniciar sesión</button>
-                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-<!-- Modal de recuperación de usuario o contraseña -->
-<div class="modal fade" tabindex="-1" role="dialog" id="modalOlvido" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title text-center text-primary" id="myModalLabel">Olvidé mi usuario o contraseña</h4>
-            </div>
-            <form action="recuperar_usuario_contrasena.php" method="POST" style="margin: 20px;">
-                <div class="form-group">
-                    <label><span class="glyphicon glyphicon-envelope"></span>&nbsp;Correo Electrónico</label>
-                    <input type="email" class="form-control" name="correo_recuperacion" placeholder="Escribe tu correo electrónico" required="" />
-                </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-sm">Recuperar</button>
                     <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
                 </div>
             </form>

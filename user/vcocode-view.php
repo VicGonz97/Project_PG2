@@ -66,7 +66,9 @@
                                     <th class="text-center">Apellidos</th>
                                     <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
-                                    <th class="text-center">Opciones</th>
+                                    <?php if ($_SESSION['tipo'] == "admin") : ?>
+                                        <th class="text-center">Opciones</th>
+                                    <?php endif; ?>
                                 </tr>
                             </thead>
                             <tbody>
@@ -80,13 +82,15 @@
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
-                                        <td class="text-center">
-                                            <form action="" method="POST" style="display: inline-block;">
-                                                <input type="hidden" name="id_del" value="<?php echo $row['id_cocode']; ?>">
-                                                <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
-                                            </form>
-                                            <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
-                                        </td>
+                                        <?php if ($_SESSION['tipo'] == "admin") : ?>
+                                            <td class="text-center">
+                                                <form action="" method="POST" style="display: inline-block;">
+                                                    <input type="hidden" name="id_del" value="<?php echo $row['id_cocode']; ?>">
+                                                    <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                                </form>
+                                                <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
+                                            </td>
+                                        <?php endif; ?>
 
                                     </tr>
                                 <?php
@@ -96,7 +100,10 @@
                                 ?>
                             </tbody>
                         </table>
-                        <a href="./index.php?view=cocode" class="btn btn-primary">Regresar</a>
+                        <?php if ($_SESSION['tipo'] == "admin") : ?>
+                            <a href="./index.php?view=cocode" class="btn btn-info">Registrar Nuevo</a>
+                        <?php endif; ?>
+                        <a href="./index.php" class="btn btn-danger">Cancelar</a>
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
