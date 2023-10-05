@@ -2,15 +2,16 @@
 // Verifica si existe una sesión con nombre y tipo de usuario
 if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     // Verifica si se han recibido datos del formulario
-    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['telefono']) && isset($_POST['dpi'])) {
+    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['telefono']) && isset($_POST['dpi']) &&  isset($_POST['cargo'])) {
         // Recopila los datos del formulario
         $nombre = $_POST['nombre'];
         $apellido = $_POST['apellido'];
         $telefono = $_POST['telefono'];
         $dpi = $_POST['dpi'];
+        $cargo = $_POST['cargo'];
 
         // Asegúrate de definir la función MysqlQuery::Guardar para realizar la inserción en la base de datos.
-        if (MysqlQuery::Guardar("cocode", "nombre, apellido, telefono, dpi", "'$nombre', '$apellido', '$telefono', '$dpi'")) {
+        if (MysqlQuery::Guardar("cocode", "nombre, apellido, telefono, dpi, cargo", "'$nombre', '$apellido', '$telefono', '$dpi', '$cargo'")) {
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -82,7 +83,16 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                             <label class="col-sm-2 control-label">DPI</label>
                                             <div class="col-sm-10">
                                                 <div class='input-group'>
-                                                <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" pattern="[0-9]{1,13}" maxlength="13">
+                                                    <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" pattern="[0-9]{1,13}" maxlength="13">
+                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Cargo</label>
+                                            <div class="col-sm-10">
+                                                <div class='input-group'>
+                                                    <input type="text" class="form-control" placeholder="Cargo" required="" pattern="[a-zA-Z ]{1,30}" name="cargo">
                                                     <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                 </div>
                                             </div>
@@ -119,13 +129,13 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                 </li>
             </div>
             <div class="col-sm-1">&nbsp;</div>
-            </div>
         </div>
-        
-        </div>
-        
     </div>
-    
+
+    </div>
+
+    </div>
+
 <?php
 }
 ?>
@@ -136,4 +146,3 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $("#fechainput").datepicker();
     });
 </script>
-

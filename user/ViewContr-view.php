@@ -1,6 +1,6 @@
 <?php if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
     <?php
-    require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
+    require_once './lib/config.php'; // Include your database connection file
 
     if (isset($_POST['id_del'])) {
         $id_user = MysqlQuery::RequestPost('id_del');
@@ -31,10 +31,13 @@
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
+        <a href="./index.php" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
+        </a>
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
-                    <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Contribuyentes&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
+                    <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Miembros de la Comunidad&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
                 </ul>
             </div>
         </div>
@@ -81,7 +84,7 @@
                                         <td class="text-center"><?php echo $row['nombre']; ?></td>
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
                                         <td class="text-center"><?php echo $row['fecha_nacimiento']; ?></td>
-                                        <td class="text-center"><?php echo $row['edad']; ?></td>
+                                        <td class="<?php if ($row['edad'] >= 55) echo 'text-danger bg-danger text-white'; ?> text-center"><?php echo $row['edad']; ?></td>
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
                                         <td class="text-center">
@@ -90,26 +93,26 @@
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             </form>
                                             <a href="./index.php?view=UpdateContr&id=<?php echo $row['id_contr']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
-                                            <a href="./index.php?view=AddContr" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
+
                                         </td>
 
                                     </tr>
                                 <?php
-
                                     $ct++;
                                 endwhile;
                                 ?>
                             </tbody>
                         </table>
-
-                        <a href="./index.php" class="btn btn-danger">Cancelar</a>
+                        <a href="./index.php?view=AddContr" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
 
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
+                        <a href="./index.php?view=AddContr" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Agregar</a>
+                        <br><br>
                     <?php endif; ?>
                 </div>
 
-                <!-- Aquí colocas el código de paginación -->
+                <!-- Pagination code here -->
                 <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
@@ -157,8 +160,28 @@
         </div>
     </div>
 <?php
-
 } else {
+?>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="./img/Guatemala.png" alt="Image" class="img-responsive" /><br>
+
+            </div>
+            <div class="col-sm-7 text-center">
+                <h1 class="text-danger">Lo sentimos esta página es solamente para usuarios registrados en el COCODE</h1>
+                <li>
+                    <a href="" data-toggle="modal" data-target="#modalLog"><span class=" "></span>&nbsp;&nbsp;Inicia sesión aqui!. Para poder acceder</a>
+                </li>
+            </div>
+            <div class="col-sm-1">&nbsp;</div>
+        </div>
+    </div>
+<?php
 }
 ?>
-<br>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#fechainput").datepicker();
+    });
+</script>

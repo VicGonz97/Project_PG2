@@ -6,10 +6,13 @@
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
+    <a href="./index.php" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
+        </a>
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
-                    <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Contribuyentes&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
+                    <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Asistentes&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
                 </ul>
             </div>
         </div>
@@ -69,7 +72,6 @@
                             </table>
                             <button type="submit" class="btn btn-primary">Registrar Asistencia</button> <!-- Agregamos un botón para registrar la asistencia -->
                             <a href="./index.php?view=ViewAsistencia" class="btn btn-info">Obtener Asistencia</a>
-                             <a href="./index.php" class="btn btn-danger">Cancelar</a>
                         </form>
 
 

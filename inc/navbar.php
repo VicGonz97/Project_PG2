@@ -1,6 +1,7 @@
 <?php
 if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
     include "./process/login.php";
+
 }
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">

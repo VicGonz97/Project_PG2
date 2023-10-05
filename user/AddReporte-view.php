@@ -4,11 +4,14 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
 ?>
 
     <div class="container">
+        <a href="./index.php" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
+        </a>
         <div class="row">
             <div class="col-sm-12">
                 <form class="form-horizontal" method="POST" action="procesar_registro.php">
                     <fieldset>
-                        <legend>Ver y descargar informes, descargue su informe detallado en formato PDF</legend>
+                        <legend class="text-center" style="color: gray;">Ver y descargar informes, descargue su informe detallado en formato PDF</legend>
                         <!-- Agregar tus campos de formulario aquí -->
                         <div class="form-group">
                             <label for="opcion" class="col-sm-2 control-label">Opciones:</label>
@@ -72,5 +75,3 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $("#fechainput").datepicker();
     });
 </script>
-
-<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>

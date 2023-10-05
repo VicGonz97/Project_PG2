@@ -1,6 +1,7 @@
 <?php
 // Function to calculate age based on date of birth
-function calcularEdad($fechaNacimiento) {
+function calcularEdad($fechaNacimiento)
+{
     $today = new DateTime();
     $birthdate = new DateTime($fechaNacimiento);
     $age = $birthdate->diff($today)->y;
@@ -10,19 +11,40 @@ function calcularEdad($fechaNacimiento) {
 // Verifica si existe una sesión con nombre y tipo de usuario
 if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     // Verifica si se han recibido datos del formulario
-    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['fecha_nacimiento']) && isset($_POST['telefono']) && isset($_POST['dpi'])) {
+    if (isset($_POST['nombre']) && isset($_POST['apellido']) && isset($_POST['fecha_nacimiento']) && isset($_POST['observaciones']) && isset($_POST['telefono']) && isset($_POST['dpi'])) {
         // Recopila los datos del formulario
         $nombre = $_POST['nombre'];
         $apellido = $_POST['apellido'];
         $fecha_nacimiento = $_POST['fecha_nacimiento'];
+        $observaciones = $_POST['observaciones'];
         $telefono = $_POST['telefono'];
         $dpi = $_POST['dpi'];
 
         // Calcula la edad a partir de la fecha de nacimiento
         $edad = calcularEdad($fecha_nacimiento);
 
+        // Verifica si el usuario tiene permisos de administrador
+        if ($_SESSION['tipo'] == 'admin') {
+            // Si es administrador, no se verifica la edad, puede registrar cualquier edad
+        } elseif ($_SESSION['tipo'] == 'user') {
+            // Si es usuario, verifica que la edad sea igual o mayor a 18 años
+            if ($edad < 18) {
+                echo '
+                    <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                        <h4 class="text-center">ERROR</h4>
+                        <p class="text-center">
+                            Debe tener al menos 18 años para registrarse. Por favor, contacte a su administrador.
+                        </p>
+                    </div>
+                ';
+
+                return; // Sale del script en caso de error
+            }
+        }
+
         // Asegúrate de definir la función MysqlQuery::Guardar para realizar la inserción en la base de datos.
-        if (MysqlQuery::Guardar("contribuyente", "nombre, apellido, fecha_nacimiento, edad, telefono, dpi", "'$nombre', '$apellido', '$fecha_nacimiento', '$edad', '$telefono', '$dpi'")) {
+        if (MysqlQuery::Guardar("contribuyente", "nombre, apellido, fecha_nacimiento, edad, observaciones, telefono, dpi", "'$nombre', '$apellido', '$fecha_nacimiento', '$edad', '$observaciones', '$telefono', '$dpi'")) {
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -44,7 +66,6 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             ';
         }
     }
-
 ?>
     <!-- Formulario de registro -->
     <div class="container">
@@ -97,6 +118,17 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-2 control-label">Observaciones</label>
+                                        <div class="col-sm-10">
+                                            <div class='input-group'>
+                                                <input type="text" class="form-control" placeholder="Razon del registro" r name="observaciones">
+                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Telefono</label>
                                         <div class="col-sm-10">
@@ -179,4 +211,3 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         edad.value = edadCalculada;
     }
 </script>
-

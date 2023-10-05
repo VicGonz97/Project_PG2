@@ -6,6 +6,9 @@
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
+    <a href="./index.php" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
+        </a>
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
@@ -69,7 +72,6 @@
                             </table>
                             <button type="submit" class="btn btn-primary">Registrar</button> <!-- Agregamos un botón para registrar la asistencia -->
                             <a href="./index.php?view=ViewConta" class="btn btn-info">Ver Contribuciones</a>
-                            <a href="./index.php" class="btn btn-danger">Cancelar</a>
                         </form>
 
                     <?php else : ?>

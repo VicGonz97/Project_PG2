@@ -30,7 +30,11 @@
     $num_user = Mysql::consulta("SELECT * FROM cocode");
     $num_total_user = mysqli_num_rows($num_user);
     ?>
+
     <div class="container">
+        <a href="./index.php" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
+        </a>
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
@@ -58,6 +62,7 @@
                     $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                     if (mysqli_num_rows($selusers) > 0) :
                     ?>
+
                         <table class="table table-hover table-striped table-bordered">
                             <thead>
                                 <tr>
@@ -66,6 +71,7 @@
                                     <th class="text-center">Apellidos</th>
                                     <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
+                                    <th class="text-center">Cargo</th>
                                     <?php if ($_SESSION['tipo'] == "admin") : ?>
                                         <th class="text-center">Opciones</th>
                                     <?php endif; ?>
@@ -82,6 +88,7 @@
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
+                                        <td class="text-center"><?php echo $row['cargo']; ?></td>
                                         <?php if ($_SESSION['tipo'] == "admin") : ?>
                                             <td class="text-center">
                                                 <form action="" method="POST" style="display: inline-block;">
@@ -100,13 +107,15 @@
                                 ?>
                             </tbody>
                         </table>
-                        <?php if ($_SESSION['tipo'] == "admin") : ?>
-                            <a href="./index.php?view=cocode" class="btn btn-info">Registrar Nuevo</a>
-                        <?php endif; ?>
-                        <a href="./index.php" class="btn btn-danger">Cancelar</a>
+
+
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
+                    <?php if ($_SESSION['tipo'] == "admin") : ?>
+                        <a href="./index.php?view=cocode" class="btn btn-info">Registrar Nuevo</a>
+                    <?php endif; ?>
+                    <br><br>
                 </div>
                 <!-- Aquí colocas el código de paginación -->
                 <?php if ($numeropaginas >= 1) : ?>
@@ -161,11 +170,14 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-4">
-                <img src="./img/Guatemala.png" alt="Image" class="img-responsive animated slideInDown" /><br>
+                <img src="./img/Guatemala.png" alt="Image" class="img-responsive" /><br>
+
             </div>
-            <div class="col-sm-7 animated flip">
-                <h1 class="text-danger">Lo sentimos esta página es solamente para el COCODE a Cargo</h1>
-                <h3 class="text-info text-center">Inicia sesión como COCODE para poder acceder</h3>
+            <div class="col-sm-7 text-center">
+                <h1 class="text-danger">Lo sentimos esta página es solamente para usuarios registrados en el COCODE</h1>
+                <li>
+                    <a href="" data-toggle="modal" data-target="#modalLog"><span class=" "></span>&nbsp;&nbsp;Inicia sesión aqui!. Para poder acceder</a>
+                </li>
             </div>
             <div class="col-sm-1">&nbsp;</div>
         </div>
@@ -173,3 +185,10 @@
 <?php
 }
 ?>
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#fechainput").datepicker();
+    });
+</script>
