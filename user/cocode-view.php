@@ -12,6 +12,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
 
         // Asegúrate de definir la función MysqlQuery::Guardar para realizar la inserción en la base de datos.
         if (MysqlQuery::Guardar("cocode", "nombre, apellido, telefono, dpi, cargo", "'$nombre', '$apellido', '$telefono', '$dpi', '$cargo'")) {
+            // Mostrar un mensaje de éxito si el registro fue exitoso
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -22,6 +23,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                 </div>
             ';
         } else {
+            // Mostrar un mensaje de error si el registro falla
             echo '
                 <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -33,7 +35,6 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             ';
         }
     }
-
 ?>
 
     <!-- Formulario de registro -->
@@ -45,7 +46,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                         <h3 class="panel-title text-center"><strong><i class="fa fa-ticket"></i>&nbsp;&nbsp;&nbsp;Registro</strong></h3>
                     </div>
                     <div class="container">
-                        <div class="row">
+                        <div class "row">
                             <div class="col-sm-2">
                                 <img src="./img/Guatemala.png" alt="Image" class="img-responsive animated flipInY">
                             </div>
@@ -112,35 +113,13 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             </div>
         </div>
     </div>
-
 <?php
 } else {
 ?>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <img src="./img/Guatemala.png" alt="Image" class="img-responsive" /><br>
-
-            </div>
-            <div class="col-sm-7 text-center">
-                <h1 class="text-danger">Lo sentimos esta página es solamente para usuarios registrados en el COCODE</h1>
-                <li>
-                    <a href="" data-toggle="modal" data-target="#modalLog"><span class=" "></span>&nbsp;&nbsp;Inicia sesión aqui!. Para poder acceder</a>
-                </li>
-            </div>
-            <div class="col-sm-1">&nbsp;</div>
-        </div>
-    </div>
-
-    </div>
-
-    </div>
 
 <?php
 }
 ?>
-
-
 <script type="text/javascript">
     $(document).ready(function() {
         $("#fechainput").datepicker();

@@ -62,6 +62,8 @@ $num_total_user = $count_result['total_count'];
 
 // Calculate the number of pages
 $numeropaginas = ceil($num_total_user / $regpagina);
+
+
 ?>
 
 

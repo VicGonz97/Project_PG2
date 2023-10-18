@@ -3,6 +3,7 @@
 if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
 
+    // Si se envió el formulario de actualización
     if (isset($_POST['update'])) {
         // Recopila los datos del formulario
         $id_cocode = $_POST['id_cocode'];
@@ -13,6 +14,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
 
         // Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
         if (MysqlQuery::Actualizar("cocode", "nombre='$nombre', apellido='$apellido', telefono='$telefono', dpi='$dpi'", "id_cocode='$id_cocode'")) {
+            // Mostrar un mensaje de éxito si la actualización fue exitosa
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -23,6 +25,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                 </div>
             ';
         } else {
+            // Mostrar un mensaje de error si la actualización falla
             echo '
                 <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -43,10 +46,15 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $consulta = Mysql::consulta("SELECT * FROM cocode WHERE id_cocode = '$id_cocode'");
 
         if ($row = mysqli_fetch_assoc($consulta)) {
-            // Aquí deberías crear un formulario con los campos prellenados con los datos actuales del registro COCODE.
+            // Aquí se crea un formulario con los campos prellenados con los datos actuales del registro COCODE.
             // El usuario podrá modificar los campos y enviar el formulario para actualizarlos.
 ?>
-
+            <div class="container">
+                <a href="./index.php?view=vcocode" style="color: gray;">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+                </a>
+            </div>
+            <br>
             <!-- Formulario de actualización -->
             <div class="container">
                 <div class="row">
@@ -104,7 +112,6 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <div class="col-sm-offset-2 col-sm-10">
                                                         <button type="submit" class="btn btn-primary" name="update">Actualizar Datos</button>
                                                         <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-danger">Cancelar</a>
-                                                        <a href="./index.php?view=vcocode" class="btn btn-primary">Regresar</a>
                                                     </div>
                                                 </div>
                                             </fieldset>
@@ -116,10 +123,9 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                     </div>
                 </div>
             </div>
-
 <?php
         } else {
-            // Si el registro no se encuentra, puedes mostrar un mensaje de error o redirigir al usuario a la página de la lista de COCODES.
+            // Si el registro no se encuentra, muestra un mensaje de error o redirige al usuario a la página de la lista de COCODES.
             echo "Registro no encontrado.";
         }
     } else {
