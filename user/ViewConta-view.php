@@ -1,5 +1,6 @@
 <?php
-require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
+require_once './lib/config.php'; // Include your database connection file
+
 
 if (isset($_POST['id_del'])) {
     $id_user = MysqlQuery::RequestPost('id_del');
@@ -7,9 +8,8 @@ if (isset($_POST['id_del'])) {
         echo '
             <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                <h4 class="text-center">COCODE ELIMINADO</h4>
                 <p class="text-center">
-                    El usuario fue eliminado del sistema con éxito.
+                    Eliminado exitosamente!.
                 </p>
             </div>
         ';
@@ -19,7 +19,7 @@ if (isset($_POST['id_del'])) {
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="text-center">OCURRIÓ UN ERROR</h4>
                 <p class="text-center">
-                    No hemos podido eliminar el usuario.
+                    No hemos podido eliminar, intente de nuevo .
                 </p>
             </div>
         ';
@@ -33,23 +33,37 @@ $pagina = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $regpagina = 15;
 $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-// Definimos una variable para la búsqueda por nombre
+// Define a variable for the search by name
 $nombre_busqueda = '';
 
 if (isset($_POST['nombre_busqueda'])) {
     $nombre_busqueda = $_POST['nombre_busqueda'];
 }
 
-// Modificamos la consulta SQL para incluir la búsqueda por nombre
-$selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM contabilidad WHERE nombre LIKE '%$nombre_busqueda%' LIMIT $inicio, $regpagina");
+// Modify the SQL query to include the search by name
+$selusers = mysqli_query($mysqli, "SELECT * FROM contabilidad WHERE nombre LIKE '%$nombre_busqueda%' LIMIT $inicio, $regpagina");
 
-$totalregistros = mysqli_query($mysqli, "SELECT FOUND_ROWS()");
-$totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
+// Add a new SQL query to calculate the sum of "cantidad"
+$sum_query = mysqli_query($mysqli, "SELECT SUM(cantidad) AS total_cantidad FROM contabilidad WHERE nombre LIKE '%$nombre_busqueda'");
+$total_cantidad = mysqli_fetch_assoc($sum_query);
 
-$num_total_user = $totalregistros["FOUND_ROWS()"];
+if ($total_cantidad['total_cantidad'] === null) {
+    $total_cantidad['total_cantidad'] = 0;
+}
 
+// Actualizar el monto total en la tabla "totalingreso"
+$update_query = mysqli_query($mysqli, "UPDATE totalingreso SET cantidad_total = " . $total_cantidad['total_cantidad']);
+
+
+// Modify the SQL query to count the total number of records with the filter
+$count_query = mysqli_query($mysqli, "SELECT COUNT(*) AS total_count FROM contabilidad WHERE nombre LIKE '%$nombre_busqueda'");
+$count_result = mysqli_fetch_assoc($count_query);
+$num_total_user = $count_result['total_count'];
+
+// Calculate the number of pages
 $numeropaginas = ceil($num_total_user / $regpagina);
 ?>
+
 
 <div class="container">
     <div class="row">
@@ -99,7 +113,7 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                                     <td class="text-center"><?php echo $row['nombre']; ?></td>
                                     <td class="text-center"><?php echo $row['apellido']; ?></td>
                                     <td class="text-center"><?php echo $row['dpi']; ?></td>
-                                    <td class="text-center"><?php echo $row['cantidad']; ?></td>
+                                    <td class="text-center"> Q <?php echo $row['cantidad']; ?></td>
                                     <td class="text-center"><?php echo $row['fecha_registro']; ?></td>
                                     <td class="text-center">
                                         <a href="./lib/pdf.php?id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
@@ -116,12 +130,17 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                             ?>
                         </tbody>
                     </table>
+                    <!-- Display the total cantidad below the table -->
+                    <div class="text-center">
+                        <p style="color: black; font-size: large; font-weight: bold;" id_ingreso="total_cantidad">Total Cantidad Ingresada: Q <?php echo $total_cantidad['total_cantidad']; ?></p>
+                    </div>
                     <a href="./index.php?view=AddConta" class="btn btn-primary">Regresar</a>
+
                 <?php else : ?>
+                    <a href="./index.php?view=AddConta" class="btn btn-info">Regresar</a>
                     <h2 class="text-center">No hay registros</h2>
                 <?php endif; ?>
             </div>
-
             <!-- Aquí colocas el código de paginación -->
             <?php if ($numeropaginas >= 1) : ?>
                 <nav aria-label="Page navigation" class="text-center">

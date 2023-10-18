@@ -27,19 +27,19 @@ header('Content-Type: text/html; charset=UTF-8');
         </div>
     </div>
     </div>
-    
+
     <?php
     if (isset($_GET['view'])) {
         $content = $_GET['view'];
         $WhiteList = [
             "index", "cocode", "vcocode", "cupdate", "contribuyente", "asistencia", "contabilidad", "reportes", "registro", "configuracion", "AddContr", "ViewContr", "UpdateContr", "RegAsistencia", "SaveAsistencia",
-            "ViewAsistencia", "AddConta", "SaveConta", "ViewConta", "EliminarTodo", "UpdateConta", "AddReporte", "ReporteCoco", "ReporteContr","ReporteAsistencia", "ReporteContabilidad",
+            "ViewAsistencia", "AddConta", "SaveConta", "ViewConta", "EliminarTodo", "UpdateConta", "AddReporte", "ReporteCoco", "ReporteContr", "ReporteAsistencia", "ReporteContabilidad", "RetirarFondos",
         ];
         if (in_array($content, $WhiteList) && is_file("./user/" . $content . "-view.php")) {
             include "./user/" . $content . "-view.php";
         } else {
     ?>
-    
+
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
@@ -65,5 +65,3 @@ header('Content-Type: text/html; charset=UTF-8');
 </body>
 
 </html>
-
-

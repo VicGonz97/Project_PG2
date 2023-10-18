@@ -1,4 +1,7 @@
-<?php if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
+<?php
+
+
+if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
     <?php
     require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
 
@@ -6,9 +9,10 @@
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
-    <a href="./index.php" style="color: gray;">
+        <a href="./index.php" style="color: gray;">
             <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
         </a>
+
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
@@ -35,7 +39,20 @@
 
                     $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                     if (mysqli_num_rows($selusers) > 0) :
+
+                        // Realiza una consulta para calcular la diferencia entre las tablas
+                        $query = "
+                              SELECT
+                              (SELECT SUM(cantidad_total) FROM totalingreso) -
+                              (SELECT SUM(retiro_total) FROM totalretiro) AS total_diferencia;
+                        ";
+
+                        $result = $mysqli->query($query);
+                        $row = $result->fetch_assoc();
+                        $totalDiferencia = $row['total_diferencia'];
                     ?>
+
+
                         <form action="./index.php?view=SaveConta" method="POST"> <!-- Agregamos un formulario para enviar la asistencia -->
                             <table class="table table-hover table-striped table-bordered">
                                 <thead>
@@ -70,16 +87,19 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-primary">Registrar</button> <!-- Agregamos un botón para registrar la asistencia -->
+                            <button type="submit" class="btn btn-primary">Guardar</button> <!-- Agregamos un botón para registrar la asistencia -->
                             <a href="./index.php?view=ViewConta" class="btn btn-info">Ver Contribuciones</a>
+                            <a href="./index.php?view=RetirarFondos" class="btn btn-info">Realizar Retiro</a>
+                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#saldoModal">Ver Saldo</a>
+
                         </form>
 
                     <?php else : ?>
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
-                 <!-- Aquí colocas el código de paginación -->
-                 <?php if ($numeropaginas >= 1) : ?>
+                <!-- Aquí colocas el código de paginación -->
+                <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
                             <?php if ($pagina == 1) : ?>
@@ -90,7 +110,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=AddConta&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=AddConta&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -114,7 +134,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=AddConta&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=AddConta&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -125,9 +145,28 @@
             </div>
         </div>
     </div>
-    <?php
+    <!-- Modal para mostrar el saldo disponible -->
+    <div id="saldoModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Saldo Disponible</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Saldo Disponible: Q<?php echo number_format($totalDiferencia, 2); ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<?php
 } else {
 ?>
+
+
     <div class="container">
         <div class="row">
             <div class="col-sm-4">

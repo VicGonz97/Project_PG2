@@ -31,12 +31,12 @@ $pdf->Ln(10); // Inserta 10 unidades de espacio en blanco
 
 
 // Título del PDF
-$pdf->Cell(0, 5, utf8_decode('COCODE Panimache4 del municipio de Chichicastenango, departamento Quiche'), 0, 1, 'C');
-$pdf->Cell(0, 5, utf8_decode('Guatemala'), 0, 1, 'C');
+$pdf->Cell(0, 5, 'COCODE Panimache4 del municipio de Chichicastenango, departamento Quiche', 0, 1, 'C');
+$pdf->Cell(0, 5, 'Guatemala', 0, 1, 'C');
 
 $pdf->Ln(15);
 
-$pdf->Cell(0, 8, utf8_decode('Listado de asistencia'), 0, 10, 'C');
+$pdf->Cell(0, 8, 'Listado de asistencia', 0, 1, 'C');
 
 
 // Encabezados de la tabla

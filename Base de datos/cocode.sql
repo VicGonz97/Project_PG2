@@ -169,3 +169,22 @@ ALTER TABLE `contribuyente`
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
+
+
+CREATE TABLE retiro (
+    id_retiro INT AUTO_INCREMENT PRIMARY KEY,
+    cantidad DECIMAL(10, 2) NOT NULL,
+    descripcion varchar(200) COLLATE utf8_spanish2_ci NOT NULL,
+    fecha_retiro TIMESTAMP DEFAULT CURRENT_TIMESTAMP  -- Puedes usar un campo de fecha y hora 
+);
+
+CREATE TABLE totalretiro (
+    id_total_retiro INT AUTO_INCREMENT PRIMARY KEY,
+    retiro_total DECIMAL(10, 2) NOT NULL
+);
+
+
+CREATE TABLE totalingreso (
+    id_ingreso INT AUTO_INCREMENT PRIMARY KEY,
+    cantidad_total DECIMAL(10, 2) NOT NULL
+);
