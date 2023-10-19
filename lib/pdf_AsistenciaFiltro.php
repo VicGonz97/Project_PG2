@@ -7,8 +7,6 @@ include './class_mysql.php';
 $mysqli = mysqli_connect(SERVER, USER, PASS, BD);
 mysqli_set_charset($mysqli, "utf8");
 
-$selusers = mysqli_query($mysqli, "SELECT * FROM asistencia");
-
 class PDF extends FPDF
 {
 }
@@ -18,6 +16,22 @@ $pdf = new PDF('P', 'mm', 'Letter');
 $pdf->SetMargins(15, 20);
 $pdf->AliasNbPages();
 $pdf->AddPage();
+
+// Resto del código de configuración del PDF (sin cambios)
+
+// Obtén las fechas de inicio y fin desde el formulario
+$fecha_inicio = isset($_POST['fecha_inicio']) ? formatDate($_POST['fecha_inicio']) . ' 00:00:00' : '';
+$fecha_fin = isset($_POST['fecha_fin']) ? formatDate($_POST['fecha_fin']) . ' 23:59:59' : '';
+
+// Consulta SQL modificada con filtros de fecha
+if (!empty($fecha_inicio) && !empty($fecha_fin)) {
+    $query = "SELECT * FROM asistencia WHERE fecha_registro BETWEEN '$fecha_inicio' AND '$fecha_fin'";
+    $selusers = mysqli_query($mysqli, $query);
+} else {
+    // Si no se proporcionaron fechas, obtén todos los registros
+    $selusers = mysqli_query($mysqli, "SELECT * FROM asistencia");
+}
+
 
 
 

@@ -17,36 +17,38 @@ $pdf->AliasNbPages();
 $pdf->AddPage();
 
 $pdf->SetTextColor(0, 0, 128);
-$pdf->SetFillColor(0, 255, 255);
+$pdf->SetFillColor(200, 200, 200);
 $pdf->SetDrawColor(0, 0, 0);
-$pdf->SetFont("Arial", "b", 9);
+$pdf->SetFont("Times", "b", 11);
 $pdf->Image('../img/Guatemala.png', 15, 15, 40);
 $pdf->Ln(10); // Inserta 10 unidades de espacio en blanco
 // Título del PDF
-$pdf->Cell(0, 5, 'COCODE Panimache4 del municipio de Chichicastenango, departamento Quiché', 0, 1, 'C');
+$pdf->Cell(0, 5, 'COCODE. Canton Panimache4 del municipio de Chichicastenango, departamento de Quiche', 0, 1, 'C');
 $pdf->Cell(0, 5, 'Guatemala', 0, 1, 'C');
 
 $pdf->Ln();
 $pdf->Ln();
+
+$pdf->SetTextColor(0, 0, 12);
+$pdf->Cell(170, 5, 'No. Comprobante #' . $reg['id_contabilidad'], 0, 1, 'R');
+
+$pdf->SetFont('Times', '', 10);
+$pdf->Cell(35, 10, 'Nombre', '0', 0, 'C', true);
+$pdf->Cell(135, 10, $reg['nombre'], 'TB', 1, 'L');
+$pdf->Cell(35, 10, 'Apellido', '0', 0, 'C', true);
+$pdf->Cell(135, 10, $reg['apellido'], 'B', 1, 'L');
+$pdf->Cell(35, 10, 'Cantidad', '0', 0, 'C', true);
+$pdf->Cell(135, 10, $reg['cantidad'], 'B', 1, 'L');
+$pdf->Cell(35, 10, 'dpi', '0', 0, 'C', true);
+$pdf->Cell(135, 10, $reg['dpi'], 'B', 1, 'L');
+$pdf->Cell(35, 10, 'Fecha', 'B', 0, 'C', true);
+$pdf->Cell(135, 10, $reg['fecha_registro'], 'B', 1, 'L');
+
+
+
+
 $pdf->Ln();
-
-$pdf->Cell(0, 5, 'Número de comprobante #' . $reg['id_contabilidad'], 0, 1, 'C');
-
-$pdf->Cell(35, 10, 'Nombre', 1, 0, 'C', true);
-$pdf->Cell(0, 10, $reg['nombre'], 1, 1, 'L');
-$pdf->Cell(35, 10, 'Apellido', 1, 0, 'C', true);
-$pdf->Cell(0, 10, $reg['apellido'], 1, 1, 'L');
-$pdf->Cell(35, 10, 'Cantidad', 1, 0, 'C', true);
-$pdf->Cell(0, 10, $reg['cantidad'], 1, 1, 'L');
-$pdf->Cell(35, 10, 'dpi', 1, 0, 'C', true);
-$pdf->Cell(0, 10, $reg['dpi'], 1, 1, 'L');
-$pdf->Cell(35, 10, 'Fecha', 1, 0, 'C', true);
-$pdf->Cell(0, 10, $reg['fecha_registro'], 1, 1, 'L');
-
-
-
-$pdf->Ln();
-
+$pdf->SetTextColor(0, 0, 128);
 $pdf->cell(0, 5, "COCODE siempre trabajando para ti!", 0, 0, 'C');
 $pdf->Ln();
 $pdf->cell(0, 5, "GRACIAS POR TU APORTE", 0, 0, 'C');

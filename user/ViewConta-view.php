@@ -1,7 +1,6 @@
 <?php
 require_once './lib/config.php'; // Include your database connection file
 
-
 if (isset($_POST['id_del'])) {
     $id_user = MysqlQuery::RequestPost('id_del');
     if (MysqlQuery::Eliminar("contabilidad", "id_contabilidad='$id_user'")) {
@@ -16,10 +15,10 @@ if (isset($_POST['id_del'])) {
     } else {
         echo '
             <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type of="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                 <h4 class="text-center">OCURRIÓ UN ERROR</h4>
                 <p class="text-center">
-                    No hemos podido eliminar, intente de nuevo .
+                    No hemos podido eliminar, intente de nuevo.
                 </p>
             </div>
         ';
@@ -54,6 +53,11 @@ if ($total_cantidad['total_cantidad'] === null) {
 // Actualizar el monto total en la tabla "totalingreso"
 $update_query = mysqli_query($mysqli, "UPDATE totalingreso SET cantidad_total = " . $total_cantidad['total_cantidad']);
 
+// Recuperar la cantidad total actualizada desde la tabla "totalingreso"
+$amount_query = mysqli_query($mysqli, "SELECT cantidad_total FROM totalingreso");
+$amount_result = mysqli_fetch_assoc($amount_query);
+$total_amount = $amount_result['cantidad_total'];
+
 
 // Modify the SQL query to count the total number of records with the filter
 $count_query = mysqli_query($mysqli, "SELECT COUNT(*) AS total_count FROM contabilidad WHERE nombre LIKE '%$nombre_busqueda'");
@@ -62,11 +66,12 @@ $num_total_user = $count_result['total_count'];
 
 // Calculate the number of pages
 $numeropaginas = ceil($num_total_user / $regpagina);
-
-
 ?>
-
-
+<div class="container">
+    <a href="./index.php?view=AddConta" style="color: gray;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+</div>
 <div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -93,6 +98,7 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                 </form>
 
                 <?php if (mysqli_num_rows($selusers) > 0) : ?>
+                    <!-- Muestra la tabla con los registros -->
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
@@ -116,7 +122,12 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                                     <td class="text-center"><?php echo $row['apellido']; ?></td>
                                     <td class="text-center"><?php echo $row['dpi']; ?></td>
                                     <td class="text-center"> Q <?php echo $row['cantidad']; ?></td>
-                                    <td class="text-center"><?php echo $row['fecha_registro']; ?></td>
+                                    <td class="text-center">
+                                        <?php
+                                        $fecha_registro = date('d/m/Y h:i a', strtotime($row['fecha_registro']));
+                                        echo $fecha_registro;
+                                        ?>
+                                    </td>
                                     <td class="text-center">
                                         <a href="./lib/pdf.php?id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                                         <form action="" method="POST" style="display: inline-block;">
@@ -132,13 +143,12 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                             ?>
                         </tbody>
                     </table>
-                    <!-- Display the total cantidad below the table -->
+                    <!-- Muestra el total de cantidad debajo de la tabla -->
                     <div class="text-center">
-                        <p style="color: black; font-size: large; font-weight: bold;" id_ingreso="total_cantidad">Total Cantidad Ingresada: Q <?php echo $total_cantidad['total_cantidad']; ?></p>
+                        <p style="color: black; font-size: large; font-weight: bold;" id_ingreso="total_cantidad">Total Cantidad Ingresada: Q <?php echo $total_amount; ?></p>
                     </div>
-                    <a href="./index.php?view=AddConta" class="btn btn-primary">Regresar</a>
-
                 <?php else : ?>
+                    <!-- No se encontraron registros para la búsqueda -->
                     <a href="./index.php?view=AddConta" class="btn btn-info">Regresar</a>
                     <h2 class="text-center">No hay registros</h2>
                 <?php endif; ?>
@@ -160,7 +170,6 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                                 </a>
                             </li>
                         <?php endif; ?>
-
                         <?php
                         for ($i = 1; $i <= $numeropaginas; $i++) {
                             if ($pagina == $i) {
@@ -170,7 +179,6 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                             }
                         }
                         ?>
-
                         <?php if ($pagina == $numeropaginas) : ?>
                             <li class="disabled">
                                 <a aria-label="Previous">

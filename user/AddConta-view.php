@@ -79,7 +79,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
                                                 <!-- Cambiamos el tipo de campo de entrada -->
                                                 <input type="number" name="cantidad_<?php echo $row['id_contr']; ?>" />
                                             </td>
-                                            <td class="text-center"><?php echo date('Y-m-d H:i:s'); ?></td> <!-- Muestra la fecha y hora actual -->
+                                            <td class="text-center"><?php echo date('d/m/Y h:i a'); ?></td> <!-- Muestra la fecha y hora actual -->
                                         </tr>
                                     <?php
                                         $ct++;

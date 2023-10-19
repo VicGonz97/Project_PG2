@@ -50,10 +50,15 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
 ?>
 
 <div class="container">
+    <a href="./index.php?view=RegAsistencia" style="color: gray;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+</div>
+<div class="container">
     <div class="row">
         <div class="col-md-12 text-center">
             <ul class="nav nav-pills nav-justified">
-                <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Contribuyentes&nbsp;&nbsp;<span class="badge"><?php echo $totalregistros["FOUND_ROWS()"]; ?></span></a></li>
+                <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Asistencia&nbsp;&nbsp;<span class="badge"><?php echo $totalregistros["FOUND_ROWS()"]; ?></span></a></li>
             </ul>
         </div>
     </div>
@@ -87,7 +92,7 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                                     <td class="text-center">
                                         <input type="checkbox" name="asistencia_<?php echo $row['id_asistencia']; ?>" <?php echo ($row['asistio'] == '1') ? 'checked' : ''; ?> disabled>
                                     </td>
-                                    <td class="text-center"><?php echo $row['fecha_registro']; ?></td>
+                                    <td class="text-center"><?php echo date('d/m/Y h:i a', strtotime($row['fecha_registro'])); ?></td>
                                     <td class="text-center">
                                         <form action="" method="POST" style="display: inline-block;">
                                             <input type="hidden" name="id_del" value="<?php echo $row['id_asistencia']; ?>">
@@ -101,7 +106,6 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                             ?>
                         </tbody>
                     </table>
-                    <a href="./index.php?view=RegAsistencia" class="btn btn-primary">Regresar</a>
                     <!-- Agregamos un botón para generar el PDF -->
                     <a href="./lib/pdf_asistencia.php" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar PDF</a>
                 <?php else : ?>

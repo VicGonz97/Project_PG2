@@ -1,18 +1,23 @@
 <?php
 
 
-    // Incluye tu archivo de configuración de base de datos (asegúrate de proporcionar la ruta correcta)
-    require_once './lib/config.php';
+// Incluye tu archivo de configuración de base de datos (asegúrate de proporcionar la ruta correcta)
+require_once './lib/config.php';
 
-    // Realiza una consulta para obtener el número total de registros en la tabla 'cocode'
-    $num_user = Mysql::consulta("SELECT * FROM cocode");
-    $num_total_user = mysqli_num_rows($num_user);
-    ?>
+// Realiza una consulta para obtener el número total de registros en la tabla 'cocode'
+$num_user = Mysql::consulta("SELECT * FROM cocode");
+$num_total_user = mysqli_num_rows($num_user);
+?>
+<div class="container">
+    <a href="./index.php?view=AddReporte" style="color: gray;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
     <div class="container">
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
-                    <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;COCODES&nbsp;&nbsp;<span class="badge"><?php echo $num_total_user; ?></span></a></li>
+                    <legend class="text-center" style="color: gray;">"Listado del COCODE."</legend>
+                    <a href="./lib/pdf_cocode.php" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar PDF</a>
                 </ul>
             </div>
         </div>
@@ -50,6 +55,7 @@
                                     <th class="text-center">Apellidos</th>
                                     <th class="text-center">Teléfono</th>
                                     <th class="text-center">DPI</th>
+                                    <th class="text-center">Cargo</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -63,6 +69,7 @@
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
+                                        <td class="text-center"><?php echo $row['cargo']; ?></td>
                                     </tr>
                                 <?php
                                     $ct++;
@@ -70,15 +77,13 @@
                                 ?>
                             </tbody>
                         </table>
-                        <a href="./index.php?view=AddReporte" class="btn btn-success">Regresar</a>
-                        <a href="./index.php?view=AddReporte" class="btn btn-danger">Generar PDF</a>
-                        <?php else : ?>
+                    <?php else : ?>
                         <!-- Si no hay registros en la base de datos -->
                         <h2 class="text-center">No hay registros</h2>
                     <?php endif; ?>
                 </div>
-            <!-- Aquí colocas el código de paginación -->
-            <?php if ($numeropaginas >= 1) : ?>
+                <!-- Aquí colocas el código de paginación -->
+                <?php if ($numeropaginas >= 1) : ?>
                     <nav aria-label="Page navigation" class="text-center">
                         <ul class="pagination">
                             <?php if ($pagina == 1) : ?>
@@ -124,5 +129,7 @@
             </div>
         </div>
     </div>
+</div>
+
 
 <br><br><br><br>

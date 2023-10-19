@@ -139,11 +139,12 @@ $totalDiferencia = $row['total_diferencia'];
                                         <label class="col-sm-2 control-label">Descripción</label>
                                         <div class="col-sm-10">
                                             <div class='input-group'>
-                                                <input type="text" class="form-control" placeholder="Máximo 50 caracteres" required name="descripcion" pattern="[a-zA-Z0-9 ]{1,50}">
+                                                <input type="text" class="form-control" placeholder="Máximo 50 caracteres" required name="descripcion" pattern=".*" maxlength="50">
                                                 <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Fecha de retiro</label>
                                         <div class="col-sm-10">

@@ -71,6 +71,7 @@
                                     <th class="text-center">Edad</th>
                                     <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
+                                    <th class="text-center">Observaciones</th>
                                     <th class="text-center">Opciones</th>
                                 </tr>
                             </thead>
@@ -83,10 +84,11 @@
                                         <td class="text-center"><?php echo $ct; ?></td>
                                         <td class="text-center"><?php echo $row['nombre']; ?></td>
                                         <td class="text-center"><?php echo $row['apellido']; ?></td>
-                                        <td class="text-center"><?php echo $row['fecha_nacimiento']; ?></td>
+                                        <td class="text-center"><?php echo date('d/m/Y', strtotime($row['fecha_nacimiento'])); ?></td>
                                         <td class="<?php if ($row['edad'] >= 55) echo 'text-danger bg-danger text-white'; ?> text-center"><?php echo $row['edad']; ?></td>
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
+                                        <td class="text-center"><?php echo $row['observaciones']; ?></td>
                                         <td class="text-center">
                                             <form action="" method="POST" style="display: inline-block;">
                                                 <input type="hidden" name="id_del" value="<?php echo $row['id_contr']; ?>">

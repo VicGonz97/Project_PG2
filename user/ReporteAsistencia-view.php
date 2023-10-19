@@ -41,6 +41,11 @@ $totalregistros = mysqli_fetch_array($totalregistros, MYSQLI_ASSOC);
 
 $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
 ?>
+<div class="container">
+    <a href="./index.php?view=AddReporte" style="color: gray;">
+        <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+    </a>
+</div>
 
 <div class="container">
     <div class="row">
@@ -56,7 +61,7 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
         <div class="col-md-12 text-center">
             <form class="form-horizontal" method="POST" action="">
                 <fieldset>
-                    <legend>Visualizar Asistencias Registradas</legend>
+                    <legend>"Visualiza y descarga la asistencia."</legend>
                     <!-- Agregar tus campos de formulario aquí -->
                     <div class="form-group">
                         <label for="fecha_inicio" class="col-lg-2 control-label">Fecha de Inicio:</label>
@@ -71,6 +76,8 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                     <div class="form-group">
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-primary">Filtrar por fecha</button>
+                            <!-- Agregamos un botón para generar el PDF -->
+                            <a href="./lib/pdf_AsistenciaFiltro.php" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar PDF</a>
                         </div>
                     </div>
                 </fieldset>
@@ -106,7 +113,7 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                                     <td class="text-center">
                                         <input type="checkbox" name="asistencia_<?php echo $row['id_asistencia']; ?>" <?php echo ($row['asistio'] == '1') ? 'checked' : ''; ?> disabled>
                                     </td>
-                                    <td class="text-center"><?php echo $row['fecha_registro']; ?></td>
+                                    <td class="text-center"><?php echo date('d/m/Y h:i a', strtotime($row['fecha_registro'])); ?></td>
                                 </tr>
                             <?php
                                 $ct++;
@@ -114,7 +121,6 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                             ?>
                         </tbody>
                     </table>
-                    <a href="./index.php?view=AddReporte" class="btn btn-success">Regresar</a>
                     <!-- Agregamos un botón para generar el PDF -->
                     <a href="./lib/pdf_asistencia.php" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar PDF</a>
 
@@ -170,4 +176,5 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
         </div>
     </div>
 </div>
+
 <br><br>

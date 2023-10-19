@@ -105,11 +105,18 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <label class="col-sm-2 control-label">Fecha</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="fecha actual" required="" name="fecha_registro" value="<?php echo $row['fecha_registro']; ?>" readonly>
+                                                            <?php
+                                                            // Formatear la fecha y hora desde el valor de la base de datos
+                                                            $fecha_registro = $row['fecha_registro'];
+                                                            $formatted_date = date('d/m/Y', strtotime($fecha_registro));
+                                                            $formatted_time = date('h:i a', strtotime($fecha_registro));
+                                                            ?>
+                                                            <input type="text" class="form-control" placeholder="fecha actual" required="" name="fecha_registro" value="<?php echo $formatted_date . ' ' . $formatted_time; ?>" readonly>
                                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-2 col-sm-10">
                                                         <button type="submit" class="btn btn-primary" name="update">Actualizar Datos</button>

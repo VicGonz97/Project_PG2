@@ -6,7 +6,7 @@
     $num_total_user = mysqli_num_rows($num_user);
     ?>
     <div class="container">
-    <a href="./index.php" style="color: gray;">
+        <a href="./index.php" style="color: gray;">
             <span class="glyphicon glyphicon-arrow-left"></span> Volver a la página principal
         </a>
         <div class="row">
@@ -62,7 +62,7 @@
                                                 <!-- Agregamos un checkbox para la asistencia -->
                                                 <input type="checkbox" name="asistencia[]" value="<?php echo $row['id_contr']; ?>">
                                             </td>
-                                            <td class="text-center"><?php echo date('Y-m-d H:i:s'); ?></td> <!-- Muestra la fecha y hora actual -->
+                                            <td class="text-center"><?php echo date('d/m/Y h:i a'); ?></td> <!-- Muestra la fecha y hora actual -->
                                         </tr>
                                     <?php
                                         $ct++;
@@ -90,7 +90,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=RegAsistencia&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=RegAsistencia&pagina=<?php echo $pagina - 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&laquo;</span>
                                     </a>
                                 </li>
@@ -114,7 +114,7 @@
                                 </li>
                             <?php else : ?>
                                 <li>
-                                <a href="./index.php?view=RegAsistencia&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
+                                    <a href="./index.php?view=RegAsistencia&pagina=<?php echo $pagina + 1; ?>" aria-label="Previous">
                                         <span aria-hidden="true">&raquo;</span>
                                     </a>
                                 </li>
@@ -125,7 +125,7 @@
             </div>
         </div>
     </div>
-    <?php
+<?php
 } else {
 ?>
     <div class="container">
