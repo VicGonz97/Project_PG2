@@ -190,12 +190,6 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
 } else {
 ?>
 <!-- Contenido HTML para usuarios no administradores -->
-<div class="container">
-    <div class="row">
-        <div class="col-sm-4">
-            <img src="./img/Stop.png" alt="Imagen" class="img-responsive animated slideInDown"/><br>
-            <img src="./img/SadTux.png" alt="Imagen" class="img-responsive"/>
-            
         </div>
         <div class="col-sm-7 animated flip">
             <h1 class="text-danger">Lo sentimos, esta página es solo para administradores del COCODE</h1>

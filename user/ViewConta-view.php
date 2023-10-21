@@ -128,6 +128,7 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                                         echo $fecha_registro;
                                         ?>
                                     </td>
+
                                     <td class="text-center">
                                         <a href="./lib/pdf.php?id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i></a>
                                         <form action="" method="POST" style="display: inline-block;">

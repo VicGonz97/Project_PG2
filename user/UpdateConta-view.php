@@ -10,29 +10,30 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $apellido = $_POST['apellido'];
         $dpi = $_POST['dpi'];
         $cantidad = $_POST['cantidad'];
-        $fecha_registro = $_POST['fecha_registro'];
+
+        // No es necesario recopilar la fecha y hora del formulario, ya que se maneja automáticamente en la base de datos.
 
         // Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
-        if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellido', dpi='$dpi', cantidad='$cantidad', fecha_registro='$fecha_registro'", "id_contabilidad='$id_contabilidad'")) {
+        if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellido', dpi='$dpi', cantidad='$cantidad'", "id_contabilidad='$id_contabilidad'")) {
             echo '
-                <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="text-center">ACTUALIZACIÓN EXITOSA</h4>
-                    <p class="text-center">
-                        Datos actualizados exitosamente.
-                    </p>
-                </div>
-            ';
+        <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="text-center">ACTUALIZACIÓN EXITOSA</h4>
+            <p class="text-center">
+                Datos actualizados exitosamente.
+            </p>
+        </div>
+    ';
         } else {
             echo '
-                <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                    <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-                    <p class="text-center">
-                        ERROR AL ACTUALIZAR: Por favor, inténtelo nuevamente.
-                    </p>
-                </div>
-            ';
+        <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+            <p class="text-center">
+                ERROR AL ACTUALIZAR: Por favor, inténtelo nuevamente.
+            </p>
+        </div>
+    ';
         }
     }
 
