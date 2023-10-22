@@ -4,18 +4,18 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
 
     if (isset($_POST['update'])) {
-        // Recopila los datos del formulario
-        $id_contabilidad = $_POST['id_contabilidad'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $dpi = $_POST['dpi'];
-        $cantidad = $_POST['cantidad'];
+       // Recopila los datos del formulario
+$id_contabilidad = $_POST['id_contabilidad'];
+$nombre = $_POST['nombre'];
+$apellido = $_POST['apellido'];
+$dpi = $_POST['dpi'];
+$cantidad = $_POST['cantidad'];
 
-        // No es necesario recopilar la fecha y hora del formulario, ya que se maneja automáticamente en la base de datos.
+// No es necesario recopilar la fecha y hora del formulario, ya que se maneja automáticamente en la base de datos.
 
-        // Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
-        if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellido', dpi='$dpi', cantidad='$cantidad'", "id_contabilidad='$id_contabilidad'")) {
-            echo '
+// Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
+if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellido', dpi='$dpi', cantidad='$cantidad'", "id_contabilidad='$id_contabilidad'")) {
+    echo '
         <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="text-center">ACTUALIZACIÓN EXITOSA</h4>
@@ -24,8 +24,8 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             </p>
         </div>
     ';
-        } else {
-            echo '
+} else {
+    echo '
         <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="text-center">OCURRIÓ UN ERROR</h4>
@@ -34,7 +34,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             </p>
         </div>
     ';
-        }
+}
     }
 
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
