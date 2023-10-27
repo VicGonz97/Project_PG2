@@ -116,7 +116,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <input type="hidden" name="id_del" value="<?php echo $row['id_cocode']; ?>">
                                                     <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                                 </form>
-                                                <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
+                                                <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                             </td>
                                         <?php endif; ?>
 

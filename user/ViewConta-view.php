@@ -135,7 +135,7 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                                             <input type="hidden" name="id_del" value="<?php echo $row['id_contabilidad']; ?>">
                                             <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                         </form>
-                                        <a href="./index.php?view=UpdateConta&id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
+                                        <a href="./index.php?view=UpdateConta&id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>
                             <?php
@@ -150,7 +150,6 @@ $numeropaginas = ceil($num_total_user / $regpagina);
                     </div>
                 <?php else : ?>
                     <!-- No se encontraron registros para la búsqueda -->
-                    <a href="./index.php?view=AddConta" class="btn btn-info">Regresar</a>
                     <h2 class="text-center">No hay registros</h2>
                 <?php endif; ?>
             </div>
@@ -199,3 +198,5 @@ $numeropaginas = ceil($num_total_user / $regpagina);
         </div>
     </div>
 </div>
+
+<br> <br> <br> 

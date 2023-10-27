@@ -87,11 +87,10 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
                                     ?>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-primary">Guardar</button> <!-- Agregamos un botón para registrar la asistencia -->
+                            <button type="submit" class="btn btn-success">Guardar</button> <!-- Agregamos un botón para registrar la asistencia -->
                             <a href="./index.php?view=ViewConta" class="btn btn-info">Ver Contribuciones</a>
-                            <a href="./index.php?view=RetirarFondos" class="btn btn-info">Realizar Retiro</a>
+                            <a href="./index.php?view=RetirarFondos" class="btn btn-success">Realizar Retiro</a>
                             <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#saldoModal">Ver Saldo</a>
-
                         </form>
 
                     <?php else : ?>
@@ -191,3 +190,4 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
         $("#fechainput").datepicker();
     });
 </script>
+

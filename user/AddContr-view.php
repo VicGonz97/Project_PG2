@@ -67,6 +67,12 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         }
     }
 ?>
+    <div class="container">
+        <a href="./index.php?view=ViewContr" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+        </a>
+    </div>
+    <br>
     <!-- Formulario de registro -->
     <div class="container">
         <div class="row">
@@ -123,7 +129,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                         <div class="col-sm-10">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" placeholder="Razon del registro" r name="observaciones">
-                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <span class="input-group-addon"><i class="fa fa-comment"></i></span>
                                             </div>
                                         </div>
                                     </div>
@@ -134,7 +140,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                         <div class="col-sm-10">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" pattern="[0-9]{1,8}" maxlength="8">
-                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                             </div>
                                         </div>
                                     </div>
@@ -143,23 +149,23 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                         <div class="col-sm-10">
                                             <div class='input-group'>
                                                 <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" pattern="[0-9]{1,13}" maxlength="13">
-                                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-info">Guardar</button>
-                                            <a href="./index.php?view=ViewContr" class="btn btn-danger">Regresar</a>
+                                        <div class="col-sm-offset-2 col-sm-10 text-center">
+                                            <button type="submit" class="btn btn-success">Guardar</button>
                                         </div>
                                     </div>
-                                </fieldset>
-                            </form>
                         </div>
+                        </fieldset>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
 <?php

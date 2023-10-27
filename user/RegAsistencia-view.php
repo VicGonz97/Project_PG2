@@ -36,7 +36,7 @@
                     $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                     if (mysqli_num_rows($selusers) > 0) :
                     ?>
-                        <form action="./index.php?view=SaveAsistencia" method="POST"> <!-- Agregamos un formulario para enviar la asistencia -->
+                        <form action="./index.php?view=SaveAsistencia" method="POST">
                             <table class="table table-hover table-striped table-bordered">
                                 <thead>
                                     <tr>
@@ -44,7 +44,7 @@
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Apellidos</th>
                                         <th class="text-center">DPI</th>
-                                        <th class="text-center">Asistencia</th> <!-- Agregamos la columna de Asistencia -->
+                                        <th class="text-center">Asistencia</th>
                                         <th class="text-center">Fecha</th>
                                     </tr>
                                 </thead>
@@ -59,10 +59,9 @@
                                             <td class="text-center"><?php echo $row['apellido']; ?></td>
                                             <td class="text-center"><?php echo $row['dpi']; ?></td>
                                             <td class="text-center">
-                                                <!-- Agregamos un checkbox para la asistencia -->
                                                 <input type="checkbox" name="asistencia[]" value="<?php echo $row['id_contr']; ?>">
                                             </td>
-                                            <td class="text-center"><?php echo date('d/m/Y h:i a'); ?></td> <!-- Muestra la fecha y hora actual -->
+                                            <td class="text-center"><?php echo date('d/m/Y h:i a'); ?></td>
                                         </tr>
                                     <?php
                                         $ct++;
@@ -70,7 +69,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                            <button type="submit" class="btn btn-primary">Registrar Asistencia</button> <!-- Agregamos un botón para registrar la asistencia -->
+                            <button type="submit" class="btn btn-success">Registrar Asistencia</button>
                             <a href="./index.php?view=ViewAsistencia" class="btn btn-info">Obtener Asistencia</a>
                         </form>
 

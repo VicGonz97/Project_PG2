@@ -1,6 +1,32 @@
 <?php
 require_once './lib/config.php'; // Incluye tu archivo de configuración de la base de datos
 
+$exitoMessage = ''; // Inicializa la variable de éxito
+$errorMessage = ''; // Inicializa la variable de error
+
+if (isset($_SESSION['exitoMessage'])) {
+    echo '<div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+<h4 class="text-center"> ELIMINADO</h4>
+<p class="text-center">
+¡Todos los registros de asistencia han sido eliminados!.
+</p>' . $_SESSION['exitoMessage'] . '</div>';
+
+    unset($_SESSION['exitoMessage']); // Limpia el mensaje de éxito
+}
+
+if (isset($_SESSION['errorMessage'])) {
+    echo '<div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+                    <p class="text-center">
+                    Ocurrió un error al eliminar los registros..
+                    </p>
+                    ' . $_SESSION['errorMessage'] . '</div>';
+    unset($_SESSION['errorMessage']); // Limpia el mensaje de error
+}
+
+
 // Función para escapar y formatear las fechas
 function formatDate($date)
 {
@@ -121,9 +147,7 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
                             ?>
                         </tbody>
                     </table>
-                    <!-- Agregamos un botón para generar el PDF -->
-                    <a href="./lib/pdf_asistencia.php" class="btn btn-sm btn-success" target="_blank"><i class="fa fa-print" aria-hidden="true"></i> Generar PDF</a>
-
+                    <button id="eliminar_asistencia" class="btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i> Eliminar Todo</button>
                 <?php else : ?>
                     <h2 class="text-center">No hay registros</h2>
                 <?php endif; ?>
@@ -176,5 +200,14 @@ $numeropaginas = ceil($totalregistros["FOUND_ROWS()"] / $regpagina);
         </div>
     </div>
 </div>
+
+<script>
+    document.getElementById('eliminar_asistencia').addEventListener('click', function() {
+        if (confirm("ALERTA !. Estás intentando eliminar el historial. Esto también eliminará todas las asistencias registradas en el módulo de asistencia. ¿Deseas continuar?")) {
+            // Si el usuario confirma la eliminación, redirige a un archivo PHP para realizar la eliminación.
+            window.location.href = 'eliminar_asistencia.php';
+        }
+    });
+</script>
 
 <br><br>

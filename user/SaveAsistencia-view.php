@@ -1,5 +1,5 @@
 <?php
-
+ob_start();
 // Inicializar la sesión si aún no está iniciada
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -67,6 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Cerrar la conexión a la base de datos
             mysqli_close($mysqli);
 
+
             if (empty($errorMessage)) {
                 $exitoMessage = 'Registrada Exitosamente!';
             }
@@ -76,6 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         $errorMessage = 'No tienes permiso para registrar asistencia.';
     }
+
 }
 ?>
 
@@ -87,8 +89,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="text-center">
             <?php echo $exitoMessage; ?>
         </p>
+        
     </div>
 <?php endif; ?>
+
 
 <?php if (!empty($errorMessage)) : ?>
     <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;">
@@ -99,3 +103,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </p>
     </div>
 <?php endif; ?>
+

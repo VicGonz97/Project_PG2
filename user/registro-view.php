@@ -10,16 +10,8 @@ if (isset($_POST['user_reg']) && isset($_POST['clave_reg']) && isset($_POST['nom
     $rol_reg = MysqlQuery::RequestPost('rol_reg');
 
 
-    $asunto = "Registro de cuenta en COCODE";
-    $cabecera = "From: COCODE Guatemala<cocode2023@gmail.com>";
-    $mensaje_mail = "Hola " . $nombre_reg . ", Gracias por registrarte en COCODE Panimache4. Los datos de cuenta son los siguientes:\nNombre Completo: " . $nombre_reg . "\nNombre de usuario: " . $user_reg . "\nClave: " . $clave_reg2 . "\nEmail: " . $email_reg . "\n Página principal: http://www.cocode2023.com/index.php";
-
 
     if (MysqlQuery::Guardar("usuario", "nombre_completo, nombre_usuario, clave, email_usuario, telefono, dpi, rol", "'$nombre_reg', '$user_reg', '$clave_reg', '$email_reg', '$telefono_reg', '$dpi_reg', '$rol_reg'")) {
-
-        /*----------  Enviar correo con los datos de la cuenta 
-                mail($email_reg, $asunto, $mensaje_mail, $cabecera);
-            ----------*/
 
         echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -68,7 +60,6 @@ if (isset($_POST['user_reg']) && isset($_POST['clave_reg']) && isset($_POST['nom
                         <div class="form-group has-success has-feedback">
                             <label class="control-label"><i class="fa fa-user"></i>&nbsp;Nombre de usuario</label>
                             <input type="text" id="input_user" class="form-control" name="user_reg" placeholder="Nombre de usuario" required="" pattern="[a-zA-Z0-9]{6,15}" title="minimo 6 - máximo 15 caracteres" maxlength="34">
-                            <!-- Note: I modified maxlength attribute to match the pattern -->
                             <div id="com_form"></div>
                         </div>
                         <div class="form-group">

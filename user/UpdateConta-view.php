@@ -4,18 +4,18 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     require_once './lib/config.php'; // Incluye tu archivo de conexión a la base de datos
 
     if (isset($_POST['update'])) {
-       // Recopila los datos del formulario
-$id_contabilidad = $_POST['id_contabilidad'];
-$nombre = $_POST['nombre'];
-$apellido = $_POST['apellido'];
-$dpi = $_POST['dpi'];
-$cantidad = $_POST['cantidad'];
+        // Recopila los datos del formulario
+        $id_contabilidad = $_POST['id_contabilidad'];
+        $nombre = $_POST['nombre'];
+        $apellido = $_POST['apellido'];
+        $dpi = $_POST['dpi'];
+        $cantidad = $_POST['cantidad'];
 
-// No es necesario recopilar la fecha y hora del formulario, ya que se maneja automáticamente en la base de datos.
+        // No es necesario recopilar la fecha y hora del formulario, ya que se maneja automáticamente en la base de datos.
 
-// Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
-if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellido', dpi='$dpi', cantidad='$cantidad'", "id_contabilidad='$id_contabilidad'")) {
-    echo '
+        // Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
+        if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellido', dpi='$dpi', cantidad='$cantidad'", "id_contabilidad='$id_contabilidad'")) {
+            echo '
         <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="text-center">ACTUALIZACIÓN EXITOSA</h4>
@@ -24,8 +24,8 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
             </p>
         </div>
     ';
-} else {
-    echo '
+        } else {
+            echo '
         <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
             <h4 class="text-center">OCURRIÓ UN ERROR</h4>
@@ -34,7 +34,7 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
             </p>
         </div>
     ';
-}
+        }
     }
 
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
@@ -49,6 +49,12 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
             // El usuario podrá modificar los campos y enviar el formulario para actualizarlos.
 ?>
 
+            <div class="container">
+                <a href="./index.php?view=ViewConta" style="color: gray;">
+                    <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+                </a>
+            </div>
+            <br>
             <!-- Formulario de actualización -->
             <div class="container">
                 <div class="row">
@@ -57,6 +63,7 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
                             <div class="panel-heading">
                                 <h3 class="panel-title text-center"><strong><i class="fa fa-pencil"></i>&nbsp;&nbsp;&nbsp;Actualizar Datos</strong></h3>
                             </div>
+                            <br>
                             <div class="container">
                                 <div class="row">
                                     <div class="col-sm-2">
@@ -89,7 +96,7 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
                                                             <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" value="<?php echo $row['dpi']; ?>" pattern="[0-9]{1,13}" maxlength="13" readonly>
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -98,7 +105,7 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
                                                             <input type="text" class="form-control" placeholder="" required="" name="cantidad" value="<?php echo $row['cantidad']; ?>">
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-money"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -113,16 +120,15 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
                                                             $formatted_time = date('h:i a', strtotime($fecha_registro));
                                                             ?>
                                                             <input type="text" class="form-control" placeholder="fecha actual" required="" name="fecha_registro" value="<?php echo $formatted_date . ' ' . $formatted_time; ?>" readonly>
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-2 col-sm-10">
-                                                        <button type="submit" class="btn btn-primary" name="update">Actualizar Datos</button>
+                                                        <button type="submit" class="btn btn-success" name="update">Actualizar</button>
                                                         <a href="./index.php?view=UpdateConta&id=<?php echo $row['id_contabilidad']; ?>" class="btn btn-danger">Cancelar</a>
-                                                        <a href="./index.php?view=ViewConta" class="btn btn-primary">Regresar</a>
                                                     </div>
                                                 </div>
                                             </fieldset>
@@ -134,7 +140,7 @@ if (MysqlQuery::Actualizar("contabilidad", "nombre='$nombre', apellido='$apellid
                     </div>
                 </div>
             </div>
-
+            <br><br><br><br><br>
 
 <?php
         } else {

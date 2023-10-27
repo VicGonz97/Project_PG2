@@ -1,27 +1,27 @@
-<?php if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") { ?>
-    <?php
+<?php
+if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
     if (isset($_POST['id_del'])) {
         $id_user = MysqlQuery::RequestPost('id_del');
         if (MysqlQuery::Eliminar("usuario", "id_usuario='$id_user'")) {
             echo '
-                        <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <h4 class="text-center">USUARIO ELIMINADO</h4>
-                            <p class="text-center">
-                                El usuario fue eliminado del sistema con exito
-                            </p>
-                        </div>
-                    ';
+                <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="text-center">USUARIO ELIMINADO</h4>
+                    <p class="text-center">
+                        El usuario fue eliminado del sistema con éxito.
+                    </p>
+                </div>
+            ';
         } else {
             echo '
-                        <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-                            <p class="text-center">
-                                No hemos podido eliminar el usuario
-                            </p>
-                        </div>
-                    ';
+                <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                    <button type button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+                    <p class="text-center">
+                        No hemos podido eliminar el usuario.
+                    </p>
+                </div>
+            ';
         }
     }
 
@@ -34,7 +34,7 @@
     $num_user = Mysql::consulta("SELECT * FROM usuario");
     $num_total_user = mysqli_num_rows($num_user);
 
-    ?>
+?>
     <div class="container">
         <div class="row">
             <div class="col-sm-2">
@@ -83,6 +83,7 @@
                                     <th class="text-center">#</th>
                                     <th class="text-center">Nombre completo</th>
                                     <th class="text-center">Nombre de usuario</th>
+                                    <th class="text-center">Contraseña</th>
                                     <th class="text-center">Correo electronico</th>
                                     <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
@@ -99,15 +100,19 @@
                                         <td class="text-center"><?php echo $ct; ?></td>
                                         <td class="text-center"><?php echo $row['nombre_completo']; ?></td>
                                         <td class="text-center"><?php echo $row['nombre_usuario']; ?></td>
+                                        <td class="text-center"><?php echo '********'; // Replace with a placeholder or remove this line if you want to hide the password 
+                                                                ?></td>
                                         <td class="text-center"><?php echo $row['email_usuario']; ?></td>
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
                                         <td class="text-center"><?php echo $row['rol']; ?></td>
+
                                         <td class="text-center">
                                             <form action="" method="POST" style="display: inline-block;">
                                                 <input type="hidden" name="id_del" value="<?php echo $row['id_usuario']; ?>">
                                                 <button type="submit" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                             </form>
+                                            <a href="admin.php?view=update&id=<?php echo $row['id_usuario']; ?>" class="btn btn-sm btn-warning"><i class="fa fa-edit" aria-hidden="true"></i> Modificar</a>
                                         </td>
                                     </tr>
                                 <?php

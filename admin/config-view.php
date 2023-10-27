@@ -1,17 +1,18 @@
-<?php if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
+<?php
 
-  /* Guardar nuevo admin */
+
+if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
+  // Código para registrar un nuevo administrador
   if (isset($_POST['nom_admin_reg']) && isset($_POST['admin_reg']) && isset($_POST['admin_clave_reg'])) {
-
     $nom_complete_save = MysqlQuery::RequestPost('nom_admin_reg');
     $nom_admin_save = MysqlQuery::RequestPost('admin_reg');
     $pass_save = md5(MysqlQuery::RequestPost('admin_clave_reg'));
     $email_save = MysqlQuery::RequestPost('admin_email_reg');
-    $telefono_reg = MysqlQuery::RequestPost('telefono_reg');
-    $dpi_reg = MysqlQuery::RequestPost('dpi_reg');
-    $rol_reg = MysqlQuery::RequestPost('rol_reg');
+    $tel_save = MysqlQuery::RequestPost('tel_admin_reg');
+    $dpi_save = MysqlQuery::RequestPost('dpi_admin_reg');
+    $rol_save = MysqlQuery::RequestPost('rol_admin_reg');
 
-    if (MysqlQuery::Guardar("administrador", "nombre_completo, nombre_admin, clave, email_admin,telefono, dpi, rol", "'$nom_complete_save', '$nom_admin_save', '$pass_save', '$email_save','$telefono_reg', '$dpi_reg', '$rol_reg'")) {
+    if (MysqlQuery::Guardar("administrador", "nombre_completo, nombre_admin, clave, email_admin,telefono, dpi, rol", "'$nom_complete_save', '$nom_admin_save', '$pass_save', '$email_save','$tel_save', '$dpi_save', '$rol_save'")) {
       echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
@@ -33,62 +34,55 @@
             ';
     }
   }
-
-
-
-
-  /* Actualizar cuenta admin */
-
-  if (isset($_POST['nom_admin_up']) && isset($_POST['admin_up']) && isset($_POST['old_nom_admin_up']) && isset($_POST['telefono']) && isset($_POST['dpi']) && isset($_POST['rol'])) {
+  // Código para actualizar datos de una cuenta de administrador
+  if (isset($_POST['nom_admin_up']) && isset($_POST['admin_up']) && isset($_POST['old_nom_admin_up'])) {
     $nom_complete_update = MysqlQuery::RequestPost('nom_admin_up');
     $nom_admin_update = MysqlQuery::RequestPost('admin_up');
     $old_nom_admin_update = MysqlQuery::RequestPost('old_nom_admin_up');
     $pass_admin_update = md5(MysqlQuery::RequestPost('admin_clave_up'));
     $old_pass_admin_uptade = md5(MysqlQuery::RequestPost('old_admin_clave_up'));
     $email_admin_update = MysqlQuery::RequestPost('admin_email_up');
-    $telefono = MysqlQuery::RequestPost('telefono');
-    $dpi = MysqlQuery::RequestPost('dpi');
-    $rol = MysqlQuery::RequestPost('rol');
+    $tel_update = MysqlQuery::RequestPost('tel_admin_up');
+    $dpi_update = MysqlQuery::RequestPost('dpi_admin_up');
+    $rol_update = MysqlQuery::RequestPost('rol_admin_up');
 
-    $sql = Mysql::consulta("SELECT * FROM administrador WHERE nombre_admin = '$old_nom_admin_update' AND clave = '$old_pass_admin_uptade'");
+    $sql = Mysql::consulta("SELECT * FROM administrador WHERE nombre_admin = '$old_nom_admin_update' AND clave='$old_pass_admin_uptade'");
     if (mysqli_num_rows($sql) >= 1) {
-      if (MysqlQuery::Actualizar("administrador", "nombre_completo = '$nom_complete_update', nombre_admin = '$nom_admin_update', clave = '$pass_admin_update', email_admin = '$email_admin_update', telefono = '$telefono', dpi = '$dpi', cargo = '$rol'", "nombre_admin = '$old_nom_admin_update' AND clave = '$old_pass_admin_uptade'")) {
-
+      if (MysqlQuery::Actualizar("administrador", "nombre_completo = '$nom_complete_update', nombre_admin = '$nom_admin_update', clave = '$pass_admin_update', email_admin = '$email_admin_update', telefono = '$tel_update', dpi = '$dpi_update', rol = '$rol_update'", "nombre_admin = '$old_nom_admin_update' and clave='$old_pass_admin_uptade'")) {
         $_SESSION['nombre'] = $nom_admin_update;
         $_SESSION['clave'] = $pass_admin_update;
         echo '
-                    <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="text-center">ADMINISTRADOR ACTUALIZADO</h4>
-                        <p class="text-center">
-                            Datos Actualizado con exito!
-                        </p>
-                    </div>
-                ';
+                <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <h4 class="text-center">ADMINISTRADOR ACTUALIZADO</h4>
+                    <p class="text-center">
+                        Datos Actualizados con éxito!
+                    </p>
+                </div>
+            ';
       } else {
         echo '
-                    <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-                        <p class="text-center">
-                            No hemos podido actualizar los datos!
-                        </p>
-                    </div>
-                ';
-      }
-    } else {
-      echo '
                 <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h4 class="text-center">OCURRIÓ UN ERROR</h4>
                     <p class="text-center">
-                        Usuario o contraseña incorrectos
+                        No hemos podido actualizar los datos
                     </p>
                 </div>
             ';
+      }
+    } else {
+      echo '
+            <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+                <p class="text-center">
+                    Usuario o contraseña incorrectos
+                </p>
+            </div>
+        ';
     }
   }
-
 
   /*Script para eliminar cuenta*/
   if (isset($_POST['nom_admin_delete']) && isset($_POST['admin_clave__delete'])) {
@@ -100,25 +94,25 @@
         echo '<script type="text/javascript"> window.location="eliminar.php"; </script>';
       } else {
         echo '
-                        <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                            <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-                            <p class="text-center">
-                                No hemos podido eliminar el administrador
-                            </p>
-                        </div>
-                    ';
+             <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                 <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+                 <p class="text-center">
+                     No hemos podido eliminar el administrador
+                 </p>
+             </div>
+         ';
       }
     } else {
       echo '
-                    <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="text-center">OCURRIÓ UN ERROR</h4>
-                        <p class="text-center">
-                            Usuario o contraseña incorrecta
-                        </p>
-                    </div>
-                ';
+         <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+             <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+             <p class="text-center">
+                 Usuario y clave incorrectos
+             </p>
+         </div>
+     ';
     }
   }
 ?>
@@ -151,23 +145,29 @@
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-shield"></i>&nbsp;Contraseña</label>
-                    <input type="password" class="form-control" name="admin_clave_reg" placeholder="Contraseña" required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres de longitud, incluir al menos una letra mayúscula, una letra minúscula y un número">
+                    <div class="input-group">
+                      <input type="password" class="form-control" name="admin_clave_reg" placeholder="Contraseña" required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres de longitud, incluir al menos una letra mayúscula, una letra minúscula y un número" id="password-input">
+                      <span class="input-group-addon" id="show-hide-password">
+                        <i class="fa fa-eye-slash" id="eyeIcon"></i>
+                      </span>
+                    </div>
                   </div>
+
                   <div class="form-group">
                     <label><i class="fa fa-envelope"></i>&nbsp;Correo electronico</label>
                     <input type="email" class="form-control" name="admin_email_reg" placeholder="Email administrador" required="">
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-phone"></i>&nbsp;Teléfono</label>
-                    <input type="tel" class="form-control" name="telefono_reg" placeholder="00000000" required="" pattern="[0-9]{8}" maxlength="8">
+                    <input type="tel" class="form-control" name="tel_admin_reg" placeholder="00000000" required="" pattern="[0-9]{8}" maxlength="8">
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-id-card"></i>&nbsp;DPI</label>
-                    <input type="text" class="form-control" name="dpi_reg" placeholder="0000000000000" required="" pattern="[0-9]{13}" maxlength="13">
+                    <input type="text" class="form-control" name="dpi_admin_reg" placeholder="0000000000000" required="" pattern="[0-9]{13}" maxlength="13">
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-briefcase"></i>&nbsp;Cargo</label>
-                    <input type="text" class="form-control" name="rol_reg" placeholder="Cargo" required="">
+                    <input type="text" class="form-control" name="rol_admin_reg" placeholder="Cargo" required="">
                   </div>
                   <center><button type="submit" class="btn btn-success">Agregar Usuario</button></center>
                 </form>
@@ -242,9 +242,15 @@
                     <div id="com_form2"></div>
                   </div>
                   <div class="form-group">
-                    <label><i class="fa fa-shield"></i>&nbsp;Contraseña</label>
-                    <input type="password" class="form-control" name="admin_clave_reg" placeholder="Contraseña" required="" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" title="La contraseña debe tener al menos 8 caracteres de longitud, incluir al menos una letra mayúscula, una letra minúscula y un número">
+                    <label><i class="fa fa-shield"></i>&nbsp;Contraseña anterior</label>
+                    <div class="input-group">
+                      <input type="password" class="form-control" name="old_admin_clave_up" placeholder="Contraseña" required="">
+                      <span class="input-group-addon" id="showHideOldPassword">
+                        <i class="fa fa-eye-slash" id="eyeIconOld"></i>
+                      </span>
+                    </div>
                   </div>
+
                   <div class="form-group">
                     <label><i class="fa fa-shield"></i>&nbsp;Ingrese nueva contraseña</label>
                     <input type="password" class="form-control" name="admin_clave_up" placeholder="Nueva contraseña">
@@ -255,15 +261,15 @@
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-phone"></i>&nbsp;Teléfono</label>
-                    <input type="tel" class="form-control" value="<?php echo $reg1['telefono']; ?>" name="telefono_reg" placeholder="00000000" required pattern="[0-9]{8}" maxlength="8">
+                    <input type="tel" class="form-control" value="<?php echo $reg1['telefono']; ?>" name="tel_admin_up" placeholder="00000000" required pattern="[0-9]{8}" maxlength="8">
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-id-card"></i>&nbsp;DPI</label>
-                    <input type="text" class="form-control" value="<?php echo $reg1['dpi']; ?>" name="dpi_reg" placeholder="0000000000000" required pattern="[0-9]{13}" maxlength="13">
+                    <input type="text" class="form-control" value="<?php echo $reg1['dpi']; ?>" name="dpi_admin_up" placeholder="0000000000000" required pattern="[0-9]{13}" maxlength="13">
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-briefcase"></i>&nbsp;Cargo</label>
-                    <input type="text" class="form-control" value="<?php echo $reg1['rol']; ?>" name="rol_reg" placeholder="Cargo" required>
+                    <input type="text" class="form-control" value="<?php echo $reg1['rol']; ?>" name="rol_admin_up" placeholder="Cargo" required>
                   </div>
                   <button type="submit" class="btn btn-info">Actualizar datos</button>
                 </form>
@@ -292,3 +298,40 @@
 <?php
 }
 ?>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#showHideOldPassword').on('click', function() {
+      var passwordInput = $('#admin_clave_reg');
+      var passwordIcon = $('#eyeIconOld');
+
+      if (passwordInput.attr('type') === 'password') {
+        passwordInput.attr('type', 'text');
+        passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+      } else {
+        passwordInput.attr('type', 'password');
+        passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+      }
+    });
+  });
+</script>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    $('#show-hide-password').on('click', function() {
+      var passwordInput = $('#password-input');
+      var passwordIcon = $('#eyeIcon');
+
+      if (passwordInput.attr('type') === 'password') {
+        passwordInput.attr('type', 'text');
+        passwordIcon.removeClass('fa-eye-slash').addClass('fa-eye');
+      } else {
+        passwordInput.attr('type', 'password');
+        passwordIcon.removeClass('fa-eye').addClass('fa-eye-slash');
+      }
+    });
+  });
+</script>

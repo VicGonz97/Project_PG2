@@ -37,6 +37,12 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     }
 ?>
 
+    <div class="container">
+        <a href="./index.php?view=vcocode" style="color: gray;">
+            <span class="glyphicon glyphicon-arrow-left"></span> Regresar
+        </a>
+    </div>
+    <br>
     <!-- Formulario de registro -->
     <div class="container">
         <div class="row">
@@ -45,6 +51,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                     <div class="panel-heading">
                         <h3 class="panel-title text-center"><strong><i class="fa fa-ticket"></i>&nbsp;&nbsp;&nbsp;Registro</strong></h3>
                     </div>
+                    <br>
                     <div class="container">
                         <div class "row">
                             <div class="col-sm-2">
@@ -62,6 +69,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Apellidos</label>
                                             <div class="col-sm-10">
@@ -71,39 +79,42 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Telefono</label>
                                             <div class="col-sm-10">
                                                 <div class='input-group'>
                                                     <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" pattern="[0-9]{1,8}" maxlength="8">
-                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">DPI</label>
                                             <div class="col-sm-10">
                                                 <div class='input-group'>
                                                     <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" pattern="[0-9]{1,13}" maxlength="13">
-                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Cargo</label>
                                             <div class="col-sm-10">
                                                 <div class='input-group'>
                                                     <input type="text" class="form-control" placeholder="Cargo" required="" pattern="[a-zA-Z ]{1,30}" name="cargo">
-                                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                    <span class="input-group-addon"><i class="fa fa-briefcase"></i></span>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10">
-                                                <button type="submit" class="btn btn-info">Guardar</button>
-                                                <a href="./index.php?view=vcocode" class="btn btn-danger">Regresar</a>
+                                            <div class="col-sm-offset-2 col-sm-10 text-center">
+                                                <button type="submit" class="btn btn-success">Guardar</button>
                                             </div>
                                         </div>
+
                                     </fieldset>
                                 </form>
                             </div>

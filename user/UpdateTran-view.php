@@ -6,14 +6,12 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     // Si se envió el formulario de actualización
     if (isset($_POST['update'])) {
         // Recopila los datos del formulario
-        $id_cocode = $_POST['id_cocode'];
-        $nombre = $_POST['nombre'];
-        $apellido = $_POST['apellido'];
-        $telefono = $_POST['telefono'];
-        $dpi = $_POST['dpi'];
+        $id_retiro = $_POST['id_retiro'];
+        $cantidad = $_POST['cantidad'];
+        $descripcion = $_POST['descripcion'];
 
         // Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
-        if (MysqlQuery::Actualizar("cocode", "nombre='$nombre', apellido='$apellido', telefono='$telefono', dpi='$dpi'", "id_cocode='$id_cocode'")) {
+        if (MysqlQuery::Actualizar("retiro", "cantidad='$cantidad', descripcion='$descripcion'", "id_retiro='$id_retiro'")) {
             // Mostrar un mensaje de éxito si la actualización fue exitosa
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -28,7 +26,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
             // Mostrar un mensaje de error si la actualización falla
             echo '
                 <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
-                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    <button type of="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h4 class="text-center">OCURRIÓ UN ERROR</h4>
                     <p class="text-center">
                         ERROR AL ACTUALIZAR: Por favor, inténtelo nuevamente.
@@ -40,17 +38,17 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
 
     if (isset($_GET['id']) && is_numeric($_GET['id'])) {
         // Obtener el ID del registro a actualizar desde la URL
-        $id_cocode = $_GET['id'];
+        $id_retiro = $_GET['id'];
 
         // Realiza una consulta para obtener los datos del registro COCODE
-        $consulta = Mysql::consulta("SELECT * FROM cocode WHERE id_cocode = '$id_cocode'");
+        $consulta = Mysql::consulta("SELECT * FROM retiro WHERE id_retiro = '$id_retiro'");
 
         if ($row = mysqli_fetch_assoc($consulta)) {
             // Aquí se crea un formulario con los campos prellenados con los datos actuales del registro COCODE.
             // El usuario podrá modificar los campos y enviar el formulario para actualizarlos.
 ?>
             <div class="container">
-                <a href="./index.php?view=vcocode" style="color: gray;">
+                <a href="./index.php?view=ViewTran" style="color: gray;">
                     <span class="glyphicon glyphicon-arrow-left"></span> Regresar
                 </a>
             </div>
@@ -71,49 +69,45 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                     </div>
                                     <div class="col-sm-8">
                                         <form class="form-horizontal" role="form" action="" method="POST">
-                                            <input type="hidden" name="id_cocode" value="<?php echo $row['id_cocode']; ?>">
+                                            <input type="hidden" name="id_retiro" value="<?php echo $row['id_retiro']; ?>">
                                             <fieldset>
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Nombre</label>
+                                                    <label class="col-sm-2 control-label">Cantidad</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="Nombre" required="" pattern="[a-zA-Z ]{1,30}" name="nombre" value="<?php echo $row['nombre']; ?>">
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <input type="text" class="form-control" placeholder="" required="" name="cantidad" value="<?php echo $row['cantidad']; ?>">
+                                                            <span class="input-group-addon"><i class="fa fa-money"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Apellidos</label>
+                                                    <label class="col-sm-2 control-label">Descripcion</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="Apellidos" required="" pattern="[a-zA-Z ]{1,30}" name="apellido" value="<?php echo $row['apellido']; ?>">
-                                                            <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                                                            <input type="text" class="form-control" placeholder="Descripcion" required="" pattern=".{1,50}" name="descripcion" value="<?php echo $row['descripcion']; ?>">
+                                                            <span class="input-group-addon"><i class="fa fa-pencil"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="col-sm-2 control-label">Telefono</label>
+                                                    <label class="col-sm-2 control-label">Fecha Retiro </label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" value="<?php echo $row['telefono']; ?>" pattern="[0-9]{1,8}" maxlength="8">
-                                                            <span class="input-group-addon"><i class="fa fa-phone"></i></span>
+                                                            <?php
+                                                            // Formatear la fecha y hora desde el valor de la base de datos
+                                                            $fecha_retiro = $row['fecha_retiro'];
+                                                            $formatted_date = date('d/m/Y', strtotime($fecha_retiro));
+                                                            $formatted_time = date('h:i a', strtotime($fecha_retiro));
+                                                            ?>
+                                                            <input type="text" class="form-control" placeholder="fecha actual" required="" name="fecha_retiro" value="<?php echo $formatted_date . ' ' . $formatted_time; ?>" readonly>
+                                                            <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    <label class="col-sm-2 control-label">DPI</label>
-                                                    <div class="col-sm-10">
-                                                        <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" value="<?php echo $row['dpi']; ?>" pattern="[0-9]{1,13}" maxlength="13">
-                                                            <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="form-group">
                                                     <div class="col-sm-offset-2 col-sm-10">
                                                         <button type="submit" class="btn btn-success" name="update">Actualizar</button>
-                                                        <a href="./index.php?view=cupdate&id=<?php echo $row['id_cocode']; ?>" class="btn btn-danger">Cancelar</a>
+                                                        <a href="./index.php?view=UpdateTran&id=<?php echo $row['id_retiro']; ?>" class="btn btn-danger">Cancelar</a>
                                                     </div>
                                                 </div>
                                             </fieldset>
@@ -125,13 +119,14 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                     </div>
                 </div>
             </div>
+            
 <?php
         } else {
             // Si el registro no se encuentra, muestra un mensaje de error o redirige al usuario a la página de la lista de COCODES.
             echo "Registro no encontrado.";
         }
     } else {
-        // Si no se proporciona un ID válido en la URL, muestra un mensaje de error o redirige al usuario.
+        // Si no se proporciona un ID válido en the URL, muestra un mensaje de error o redirige al usuario.
         echo "ID no válido.";
     }
 } else {
@@ -139,4 +134,4 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     echo "Inicia sesión como COCODE para acceder a esta página.";
 }
 ?>
-<br><br><br>
+<br> <br> <br> <br> <br>

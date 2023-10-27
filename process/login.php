@@ -57,4 +57,3 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
         ';
     }
 }
-?>

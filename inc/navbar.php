@@ -1,7 +1,6 @@
 <?php
 if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
     include "./process/login.php";
-
 }
 ?>
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -25,10 +24,6 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                         <ul class="dropdown-menu">
                             <!-- COCODE -->
                             <?php if ($_SESSION['tipo'] == "user") : ?>
-
-                                <li>
-                                    <a href="./index.php?view=configuracion"><i class="fa fa-cogs"></i>&nbsp;&nbsp;Configuracion</a>
-                                </li>
                             <?php endif; ?>
 
                             <!-- admins -->
@@ -42,6 +37,9 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                                 </li>
                                 <li>
                                     <a href="./index.php?view=registro"><i class="fa fa-users"></i>&nbsp;&nbsp;Registro</a>
+                                </li>
+                                <li>
+                                    <a href="admin.php?view=formateo"><i class="fa fa-cog"></i>&nbsp;&nbsp;Formatear Contabilidad</a>
                                 </li>
                             <?php endif; ?>
                             <li class="divider"></li>
@@ -65,7 +63,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 </li>
                 <li>
                     <a href="./index.php?view=AddReporte"><span class=""></span>&nbsp;&nbsp;Reportes</a>
-                    
+
                 </li>
                 <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
 
