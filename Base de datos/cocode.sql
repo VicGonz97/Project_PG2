@@ -183,8 +183,11 @@ CREATE TABLE totalretiro (
     retiro_total DECIMAL(10, 2) NOT NULL
 );
 
+INSERT INTO totalretiro (retiro_total) VALUES (0.00);
 
 CREATE TABLE totalingreso (
     id_ingreso INT AUTO_INCREMENT PRIMARY KEY,
     cantidad_total DECIMAL(10, 2) NOT NULL
 );
+
+INSERT INTO totalingreso (cantidad_total) VALUES (0.00);
