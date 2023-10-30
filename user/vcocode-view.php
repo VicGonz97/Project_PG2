@@ -92,6 +92,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                     <th class="text-center">Telefono</th>
                                     <th class="text-center">DPI</th>
                                     <th class="text-center">Cargo</th>
+                                    <th class="text-center">Estado</th>
                                     <?php if ($_SESSION['tipo'] == "admin") : ?>
                                         <th class="text-center">Opciones</th>
                                     <?php endif; ?>
@@ -109,6 +110,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
                                         <td class="text-center"><?php echo $row['cargo']; ?></td>
+                                        <td class="text-center"><?php echo $row['estado']; ?></td>
                                         <?php if ($_SESSION['tipo'] == "admin") : ?>
                                             <!-- Opciones de edición y eliminación (solo para usuarios de tipo "admin") -->
                                             <td class="text-center">

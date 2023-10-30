@@ -68,8 +68,9 @@ CREATE TABLE `cocode` (
   `nombre` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `apellido` varchar(100) COLLATE utf8_spanish2_ci NOT NULL,
   `telefono` text COLLATE utf8_spanish2_ci NOT NULL,
-  `dpi` text COLLATE utf8_spanish2_ci NOT NULL
-   `cargo` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
+  `dpi` text COLLATE utf8_spanish2_ci NOT NULL,
+   `cargo` varchar(30) COLLATE utf8_spanish2_ci NOT NULL,
+   `estado` varchar(30) COLLATE utf8_spanish2_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 

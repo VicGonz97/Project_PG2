@@ -20,16 +20,31 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $telefono = $_POST['telefono'];
         $dpi = $_POST['dpi'];
 
-        // Calcula la edad a partir de la fecha de nacimiento
-        $edad = calcularEdad($fecha_nacimiento);
+        // Realiza una consulta para verificar si ya existe un registro con el mismo DPI
+        $mysqli = mysqli_connect(SERVER, USER, PASS, BD);
+        $consulta = mysqli_query($mysqli, "SELECT * FROM contribuyente WHERE dpi = '$dpi'");
 
-        // Verifica si el usuario tiene permisos de administrador
-        if ($_SESSION['tipo'] == 'admin') {
-            // Si es administrador, no se verifica la edad, puede registrar cualquier edad
-        } elseif ($_SESSION['tipo'] == 'user') {
-            // Si es usuario, verifica que la edad sea igual o mayor a 18 años
-            if ($edad < 18) {
-                echo '
+        if (mysqli_num_rows($consulta) > 0) {
+            echo '
+        <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+            <h4 class="text-center">DPI DUPLICADO</h4>
+            <p class="text-center">
+                El DPI ingresado ya existe en la base de datos.
+            </p>
+        </div>';
+        } else {
+
+            // Calcula la edad a partir de la fecha de nacimiento
+            $edad = calcularEdad($fecha_nacimiento);
+
+            // Verifica si el usuario tiene permisos de administrador
+            if ($_SESSION['tipo'] == 'admin') {
+                // Si es administrador, no se verifica la edad, puede registrar cualquier edad
+            } elseif ($_SESSION['tipo'] == 'user') {
+                // Si es usuario, verifica que la edad sea igual o mayor a 18 años
+                if ($edad < 18) {
+                    echo '
                     <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                         <h4 class="text-center">ERROR</h4>
@@ -39,13 +54,13 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                     </div>
                 ';
 
-                return; // Sale del script en caso de error
+                    return; // Sale del script en caso de error
+                }
             }
-        }
 
-        // Asegúrate de definir la función MysqlQuery::Guardar para realizar la inserción en la base de datos.
-        if (MysqlQuery::Guardar("contribuyente", "nombre, apellido, fecha_nacimiento, edad, observaciones, telefono, dpi", "'$nombre', '$apellido', '$fecha_nacimiento', '$edad', '$observaciones', '$telefono', '$dpi'")) {
-            echo '
+            // Asegúrate de definir la función MysqlQuery::Guardar para realizar la inserción en la base de datos.
+            if (MysqlQuery::Guardar("contribuyente", "nombre, apellido, fecha_nacimiento, edad, observaciones, telefono, dpi", "'$nombre', '$apellido', '$fecha_nacimiento', '$edad', '$observaciones', '$telefono', '$dpi'")) {
+                echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h4 class="text-center">REGISTRO EXITOSO</h4>
@@ -54,8 +69,8 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                     </p>
                 </div>
             ';
-        } else {
-            echo '
+            } else {
+                echo '
                 <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
                     <h4 class="text-center">OCURRIÓ UN ERROR</h4>
@@ -64,6 +79,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                     </p>
                 </div>
             ';
+            }
         }
     }
 ?>

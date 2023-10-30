@@ -52,6 +52,24 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
                         $totalDiferencia = $row['total_diferencia'];
                     ?>
 
+                        <div id="confirmacionDialog" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">ALERTA!</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>¿Verificar si los datos se ingresaron correctamente?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Verificar</button>
+                                        <button type="button" class="btn btn-success" id="confirmarGuardar">Guardar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
 
                         <form action="./index.php?view=SaveConta" method="POST"> <!-- Agregamos un formulario para enviar la asistencia -->
                             <table class="table table-hover table-striped table-bordered">
@@ -191,3 +209,23 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) { ?>
     });
 </script>
 
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#fechainput").datepicker();
+
+        // Agregar un manejador de evento click al botón "Guardar"
+        $("button[type='submit']").on("click", function(e) {
+            e.preventDefault(); // Evitar la acción predeterminada del botón "Guardar"
+
+            // Mostrar el cuadro de diálogo de confirmación
+            $("#confirmacionDialog").modal("show");
+        });
+
+        // Agregar un manejador de evento al botón de confirmación
+        $("#confirmarGuardar").on("click", function() {
+            // Si el usuario confirma, envía el formulario
+            $("form").submit();
+        });
+    });
+</script>

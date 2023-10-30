@@ -130,7 +130,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <label class="col-sm-2 control-label">Telefono</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" value="<?php echo $row['telefono']; ?>" pattern="[0-9]{1,8}" maxlength="8">
+                                                            <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" value="<?php echo $row['telefono']; ?>" pattern="[0-9]{1,8}" maxlength="">
                                                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                                         </div>
                                                     </div>

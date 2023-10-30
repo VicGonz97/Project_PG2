@@ -56,6 +56,7 @@ $num_total_user = mysqli_num_rows($num_user);
                                     <th class="text-center">Teléfono</th>
                                     <th class="text-center">DPI</th>
                                     <th class="text-center">Cargo</th>
+                                    <th class="text-center">Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -70,6 +71,7 @@ $num_total_user = mysqli_num_rows($num_user);
                                         <td class="text-center"><?php echo $row['telefono']; ?></td>
                                         <td class="text-center"><?php echo $row['dpi']; ?></td>
                                         <td class="text-center"><?php echo $row['cargo']; ?></td>
+                                        <td class="text-center"><?php echo $row['estado']; ?></td>
                                     </tr>
                                 <?php
                                     $ct++;

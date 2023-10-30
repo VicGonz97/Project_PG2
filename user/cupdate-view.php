@@ -11,9 +11,10 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         $apellido = $_POST['apellido'];
         $telefono = $_POST['telefono'];
         $dpi = $_POST['dpi'];
+        $estado = $_POST['estado'];
 
         // Asegúrate de definir la función MysqlQuery::Actualizar para realizar la actualización en la base de datos.
-        if (MysqlQuery::Actualizar("cocode", "nombre='$nombre', apellido='$apellido', telefono='$telefono', dpi='$dpi'", "id_cocode='$id_cocode'")) {
+        if (MysqlQuery::Actualizar("cocode", "nombre='$nombre', apellido='$apellido', telefono='$telefono', dpi='$dpi', estado='$estado'", "id_cocode='$id_cocode'")) {
             // Mostrar un mensaje de éxito si la actualización fue exitosa
             echo '
                 <div class="alert alert-info alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
@@ -95,7 +96,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <label class="col-sm-2 control-label">Telefono</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" value="<?php echo $row['telefono']; ?>" pattern="[0-9]{1,8}" maxlength="8">
+                                                            <input type="text" class="form-control" placeholder="00000000" required="" name="telefono" value="<?php echo $row['telefono']; ?>" pattern="[0-9]{1,8}" maxlength="">
                                                             <span class="input-group-addon"><i class="fa fa-phone"></i></span>
                                                         </div>
                                                     </div>
@@ -106,6 +107,18 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                         <div class='input-group'>
                                                             <input type="text" class="form-control" placeholder="0000000000000" required="" name="dpi" value="<?php echo $row['dpi']; ?>" pattern="[0-9]{1,13}" maxlength="13">
                                                             <span class="input-group-addon"><i class="fa fa-id-card"></i></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label">Estado</label>
+                                                    <div class="col-sm-10">
+                                                        <div class="input-group">
+                                                            <select class="form-control" name="estado">
+                                                                <option value="activo">Activo <i class="fa fa-check"></i></option>
+                                                                <option value="retirado">Retirado <i class="fa fa-times"></i></option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>

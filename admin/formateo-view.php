@@ -41,7 +41,6 @@ $totalDiferencia = $row['total_diferencia'];
                 <ul class="nav nav-pills nav-justified">
                     <legend class="text-center" style="color: gray;">"Aqui puede eliminar todos los datos de contabilidad."</legend>
                     <button id="formatearConta" class="btn btn-sm btn-danger"><i class="fa fa-cog" aria-hidden="true"></i> Eliminar Todo</button>
-
                 </ul>
             </div>
         </div>
@@ -74,7 +73,6 @@ $totalDiferencia = $row['total_diferencia'];
         </div>
     </div>
 
-
     <!-- Comienza la segunda tabla "totalretiro" -->
     <div class="container">
         <div class="row">
@@ -83,7 +81,6 @@ $totalDiferencia = $row['total_diferencia'];
                     <table class="table table-hover table-striped table-bordered">
                         <thead>
                             <tr>
-
                                 <th class="text-center">Total Cantidad Retirada</th>
                             </tr>
                         </thead>
@@ -95,7 +92,6 @@ $totalDiferencia = $row['total_diferencia'];
                             while ($row = mysqli_fetch_array($selretiros, MYSQLI_ASSOC)) :
                             ?>
                                 <tr>
-
                                     <td class="text-center">Q<?php echo $row['retiro_total']; ?></td>
                                 </tr>
                             <?php
@@ -112,12 +108,42 @@ $totalDiferencia = $row['total_diferencia'];
         </div>
     </div>
 </div>
-<br><br><br><br><br>
+
+<!-- Cuadro de diálogo de confirmación para el código -->
+<div id="confirmacionDialog" class="modal fade " role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Confirmación</h4>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que deseas eliminar todos los datos de contabilidad? Ingresa el código de confirmación:</p>
+                <input type="text" id="codigoConfirmacion" class="form-control" placeholder="Código de confirmación">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success" id="confirmarEliminar">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.getElementById('formatearConta').addEventListener('click', function() {
-        if (confirm("ALERTA !. Estás intentando eliminar datos en contabilidad. Esto también eliminará cantidades ingresadas, retiradas y saldo disponible y todo el historial. ¿Deseas continuar?")) {
-            // Si el usuario confirma la eliminación, redirige a un archivo PHP para realizar la eliminación.
+        // Mostrar el cuadro de diálogo de confirmación
+        $("#confirmacionDialog").modal("show");
+    });
+
+    // Agregar un manejador de evento al botón de confirmación
+    $("#confirmarEliminar").on("click", function() {
+        var codigoIngresado = $("#codigoConfirmacion").val();
+        var codigoCorrecto = "29102023"; // Reemplaza con tu código de confirmación real
+
+        if (codigoIngresado === codigoCorrecto) {
+            // Si el usuario ingresa el código correcto, redirige a un archivo PHP para realizar la eliminación.
             window.location.href = 'formatearConta.php';
+        } else {
+            alert("Código de confirmación incorrecto. Intente de nuevo.");
         }
     });
 </script>

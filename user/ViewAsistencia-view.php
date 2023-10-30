@@ -40,7 +40,16 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
     $regpagina = 15;
     $inicio = ($pagina > 1) ? (($pagina * $regpagina) - $regpagina) : 0;
 
-    $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM asistencia LIMIT $inicio, $regpagina");
+    // Modifica la consulta SQL para aplicar el filtro
+    $filtro = isset($_GET['filtro']) ? $_GET['filtro'] : 'todos';
+
+    if ($filtro === 'marcados') {
+        $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM asistencia WHERE asistio = '1' LIMIT $inicio, $regpagina");
+    } elseif ($filtro === 'vacios') {
+        $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM asistencia WHERE asistio = '0' LIMIT $inicio, $regpagina");
+    } else {
+        $selusers = mysqli_query($mysqli, "SELECT SQL_CALC_FOUND_ROWS * FROM asistencia LIMIT $inicio, $regpagina");
+    }
 
     // Obtener el número total de registros para paginación
     $totalregistros = mysqli_query($mysqli, "SELECT FOUND_ROWS()");
@@ -58,11 +67,15 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
         <div class="row">
             <div class="col-md-12 text-center">
                 <ul class="nav nav-pills nav-justified">
-                    <li><a><i class="fa fa-users"></i>&nbsp;&nbsp;Asistencia&nbsp;&nbsp;<span class="badge"><?php echo $totalregistros["FOUND_ROWS()"]; ?></span></a></li>
+                    <li><a href="./index.php?view=ViewAsistencia"><i class="fa fa-users"></i>&nbsp;&nbsp;Asistencia&nbsp;&nbsp;<span class="badge"><?php echo $totalregistros["FOUND_ROWS()"]; ?></span></a></li>
+                    <li><a href="./index.php?view=ViewAsistencia&filtro=marcados"><i class="fa fa-check-square-o"></i>&nbsp;&nbsp;Presente</a></li>
+                    <li><a href="./index.php?view=ViewAsistencia&filtro=vacios"><i class="fa fa-square-o"></i>&nbsp;&nbsp;Ausente</a></li>
                 </ul>
             </div>
         </div>
+
         <br>
+
         <div class="row">
             <div class="col-md-12">
                 <div class="table-responsive">
