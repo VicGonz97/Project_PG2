@@ -19,6 +19,7 @@ header('Content-Type: text/html; charset=UTF-8');
             <div class="col-sm-12">
                 <h1 class="animated lightSpeedIn">COCODE<small>Panimache 4</small></h1>
                 <p class="pull-right text-primary">
+                    <img src="./img/umg.png" alt="Image" class="img-responsive animated flipInY" style="width: 160px; height: auto;">
                     <strong>
                         <?php include "./inc/timezone.php"; ?>
                     </strong>
