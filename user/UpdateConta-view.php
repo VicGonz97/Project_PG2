@@ -77,7 +77,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <label class="col-sm-2 control-label">Nombre</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="Nombre" required="" pattern="[a-zA-Z ]{1,30}" name="nombre" value="<?php echo $row['nombre']; ?>" readonly>
+                                                            <input type="text" class="form-control" placeholder="Nombre" required="" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,30}" name="nombre" value="<?php echo $row['nombre']; ?>" readonly>
                                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                         </div>
                                                     </div>
@@ -86,7 +86,7 @@ if (isset($_SESSION['nombre']) && isset($_SESSION['tipo'])) {
                                                     <label class="col-sm-2 control-label">Apellidos</label>
                                                     <div class="col-sm-10">
                                                         <div class='input-group'>
-                                                            <input type="text" class="form-control" placeholder="Apellidos" required="" pattern="[a-zA-Z ]{1,30}" name="apellido" value="<?php echo $row['apellido']; ?>" readonly>
+                                                            <input type="text" class="form-control" placeholder="Apellidos" required="" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,30}" name="apellido" value="<?php echo $row['apellido']; ?>" readonly>
                                                             <span class="input-group-addon"><i class="fa fa-user"></i></span>
                                                         </div>
                                                     </div>
