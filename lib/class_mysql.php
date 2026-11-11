@@ -47,14 +47,14 @@ class MysqlQuery {
 
     public static function RequestGet($val) {
         $data = addslashes($_GET[$val]);
-        $var = utf8_decode($data);
+        $var = $data;
         $datos = MysqlQuery::limpiarCadena($var);
         return $datos;
     }
 
     public static function RequestPost($val) {
         $data = addslashes($_POST[$val]);
-        $var = utf8_decode($data);
+        $var = $data;
         $datos = MysqlQuery::limpiarCadena($var);
         return $datos;
     }
