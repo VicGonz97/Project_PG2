@@ -26,4 +26,10 @@ return [
     'contrasena'        => 'Password',
     'escribe_contrasena'=> 'Enter your password',
     'cancelar'          => 'Cancel',
+    // Home
+    'bienvenido' => 'Welcome!',
+    'lema'       => 'COCODE always working for the community.',
+        // Date
+    'dias'  => 'Sunday,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday',
+    'meses' => 'January,February,March,April,May,June,July,August,September,October,November,December',
 ];

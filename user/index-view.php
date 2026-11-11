@@ -31,7 +31,7 @@
     <div class="contenido">
         <div class="row">
             <div class="col-sm-12">
-                <h1 class="animated lightSpeedIn">Bienvenido! <small>COCODE siempre trabajando para el pueblo.</small></h1>
+                <h1 class="animated lightSpeedIn"><?php echo t('bienvenido'); ?> <small><?php echo t('lema'); ?></small></h1>
                 <p class="pull-right text-primary"> </p>
             </div>
         </div>

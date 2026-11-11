@@ -26,5 +26,11 @@ return [
     'contrasena'        => 'Contraseña',
     'escribe_contrasena'=> 'Escribe tu contraseña',
     'cancelar'          => 'Cancelar',
+    // Inicio
+    'bienvenido' => '¡Bienvenido!',
+    'lema'       => 'COCODE siempre trabajando para el pueblo.',
+        // Fecha
+    'dias'  => 'domingo,lunes,martes,miércoles,jueves,viernes,sábado',
+    'meses' => 'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre',
 ];
 
