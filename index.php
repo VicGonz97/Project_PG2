@@ -1,5 +1,6 @@
 <?php
 session_start();
+include './inc/idioma.php';
 include './lib/class_mysql.php';
 include './lib/config.php';
 header('Content-Type: text/html; charset=UTF-8');
