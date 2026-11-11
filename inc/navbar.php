@@ -30,45 +30,45 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                             <?php if ($_SESSION['tipo'] == "admin") : ?>
 
                                 <li>
-                                    <a href="admin.php?view=admin"><span class="glyphicon glyphicon-user"></span> &nbsp;Administrar Usuarios</a>
+                                    <a href="admin.php?view=admin"><span class="glyphicon glyphicon-user"></span> &nbsp;<?php echo t('admin_usuarios'); ?></a>
                                 </li>
                                 <li>
-                                    <a href="admin.php?view=config"><i class="fa fa-cogs"></i> &nbsp; Configuracion</a>
+                                    <a href="admin.php?view=config"><i class="fa fa-cogs"></i> &nbsp; <?php echo t('configuracion'); ?></a>
                                 </li>
                                 <li>
-                                    <a href="./index.php?view=registro"><i class="fa fa-users"></i>&nbsp;&nbsp;Registro</a>
+                                    <a href="./index.php?view=registro"><i class="fa fa-users"></i>&nbsp;&nbsp;<?php echo t('registro'); ?></a>
                                 </li>
                                 <li>
-                                    <a href="admin.php?view=formateo"><i class="fa fa-cog"></i>&nbsp;&nbsp;Formatear Contabilidad</a>
+                                    <a href="admin.php?view=formateo"><i class="fa fa-cog"></i>&nbsp;&nbsp;<?php echo t('formatear_conta'); ?></a>
                                 </li>
                             <?php endif; ?>
                             <li class="divider"></li>
-                            <li><a href="./process/logout.php"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Cerrar sesión</a></li>
+                            <li><a href="./process/logout.php"><i class="fa fa-power-off"></i>&nbsp;&nbsp;<?php echo t('cerrar_sesion'); ?></a></li>
                         </ul>
                     </li>
                 </ul>
             <?php endif; ?>
             <ul class="nav navbar-nav navbar-right">
                 <li>
-                    <a href="./index.php?view=vcocode"><span class=""></span>&nbsp;&nbsp;Miembros del COCODE</a>
+                    <a href="./index.php?view=vcocode"><span class=""></span>&nbsp;&nbsp;<?php echo t('miembros'); ?></a>
                 </li>
                 <li>
-                    <a href="./index.php?view=ViewContr"><span class=""></span>&nbsp;&nbsp;Contribuyentes</a>
+                    <a href="./index.php?view=ViewContr"><span class=""></span>&nbsp;&nbsp;<?php echo t('contribuyentes'); ?></a>
                 </li>
                 <li>
-                    <a href="./index.php?view=RegAsistencia"><span class=""></span>&nbsp;&nbsp;Asistencia</a>
+                    <a href="./index.php?view=RegAsistencia"><span class=""></span>&nbsp;&nbsp;<?php echo t('asistencia'); ?></a>
                 </li>
                 <li>
-                    <a href="./index.php?view=AddConta"><span class=""></span>&nbsp;&nbsp;Contabilidad</a>
+                    <a href="./index.php?view=AddConta"><span class=""></span>&nbsp;&nbsp;<?php echo t('contabilidad'); ?></a>
                 </li>
                 <li>
-                    <a href="./index.php?view=AddReporte"><span class=""></span>&nbsp;&nbsp;Reportes</a>
+                    <a href="./index.php?view=AddReporte"><span class=""></span>&nbsp;&nbsp;<?php echo t('reportes'); ?></a>
 
                 </li>
                 <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
 
                     <li>
-                        <a href="#" data-toggle="modal" data-target="#modalLog"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;Iniciar sesión</a>
+                        <a href="#" data-toggle="modal" data-target="#modalLog"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo t('iniciar_sesion'); ?></a>
                     </li>
                 <?php endif; ?>
             </ul>
@@ -92,16 +92,16 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
 
             <form action="" method="POST" style="margin: 20px;">
                 <div class="form-group">
-                    <label><span class="glyphicon glyphicon-user"></span>&nbsp;Nombre Usuario</label>
-                    <input type="text" class="form-control" name="nombre_login" placeholder="Escribe tu nombre" required="" />
+                    <label><span class="glyphicon glyphicon-user"></span>&nbsp;<?php echo t('nombre_usuario'); ?></label>
+                    <input type="text" class="form-control" name="nombre_login" placeholder="<?php echo t('escribe_nombre'); ?>" required="" />
                 </div>
                 <div class="form-group">
-                    <label><span class="glyphicon glyphicon-lock"></span>&nbsp;Contraseña</label>
-                    <input type="password" class="form-control" name="contrasena_login" placeholder="Escribe tu contraseña" required="" />
+                    <label><span class="glyphicon glyphicon-lock"></span>&nbsp;<?php echo t('contrasena'); ?></label>
+                    <input type="password" class="form-control" name="contrasena_login" placeholder="<?php echo t('escribe_contrasena'); ?>" required="" />
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary btn-sm">Iniciar sesión</button>
-                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary btn-sm"><?php echo t('iniciar_sesion'); ?></button>
+                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal"><?php echo t('cancelar'); ?></button>
                 </div>
             </form>
         </div>
