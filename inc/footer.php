@@ -1,4 +1,27 @@
+<style>
+  footer {
+    position: relative;
+  }
+  .selector-idioma {
+    position: absolute;
+    top: 45px;
+    right: 10%;
+  }
+  @media (max-width: 767px) {
+    .selector-idioma {
+      position: static;
+      text-align: center;
+      margin-top: 10px;
+    }
+  }
+</style>
 <footer>
+   <div class="selector-idioma">
+    <i class="fa fa-globe text-info" aria-hidden="true"></i> &nbsp;
+    <a href="?lang=es" class="text-warning">Español</a>
+    <span class="text-info">|</span>
+    <a href="?lang=en" class="text-warning">English</a>
+  </div>
   <div class="container">
     <div class="row">
       <div class="col-sm-4">
