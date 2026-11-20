@@ -49,6 +49,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 </ul>
             <?php endif; ?>
             <ul class="nav navbar-nav navbar-right">
+            
                 <li>
                     <a href="./index.php?view=vcocode"><span class=""></span>&nbsp;&nbsp;<?php echo t('miembros'); ?></a>
                 </li>
@@ -63,7 +64,9 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 </li>
                 <li>
                     <a href="./index.php?view=AddReporte"><span class=""></span>&nbsp;&nbsp;<?php echo t('reportes'); ?></a>
-
+                </li>
+                <li>
+                    <a href="./index.php?view=marketplace"><span class=""></span>&nbsp;&nbsp;<?php echo t('marketplace'); ?></a>
                 </li>
                 <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
 
@@ -86,7 +89,7 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 <div class="col-sm-10">
                     <img src="./img/Guatemala.png" alt="Image" class="img-responsive ">
                 </div>
-                <h4 class="modal-title text-center text-primary" id="myModalLabel">Bienvenido COCODE</h4>
+                <h4 class="modal-title text-center text-primary" id="myModalLabel"><?php echo t('bienvenido_cocode'); ?></h4>
 
             </div>
 
