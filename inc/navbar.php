@@ -68,6 +68,12 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 <li>
                     <a href="./index.php?view=marketplace"><span class=""></span>&nbsp;&nbsp;<?php echo t('marketplace'); ?></a>
                 </li>
+                <li>
+                  <a href="./index.php?view=carrito">
+                   <i class="fa fa-shopping-cart"></i>
+                   <span class="badge"><?php echo array_sum($_SESSION['carrito'] ?? []); ?></span>
+                    </a>
+                </li>
                 <?php if (!isset($_SESSION['tipo']) && !isset($_SESSION['nombre'])) : ?>
 
                     <li>
