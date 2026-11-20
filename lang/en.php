@@ -39,4 +39,15 @@ return [
     //login
         'error_titulo' => 'AN ERROR OCCURRED',
         'login_error' => 'Incorrect username or password',
+    // Add to cart
+    'agregar'          => 'Add to cart',
+    'carrito'          => 'Cart',
+    'carrito_vacio'    => 'Your cart is empty.',
+    'producto'         => 'Product',
+    'precio'           => 'Price',
+    'cantidad'         => 'Quantity',
+    'subtotal'         => 'Subtotal',
+    'total'            => 'Total',
+    'actualizar'       => 'Update',
+    'seguir_comprando' => 'Keep shopping',
 ];

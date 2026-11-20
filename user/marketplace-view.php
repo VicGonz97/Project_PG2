@@ -27,6 +27,13 @@ $resultado = mysqli_query($con, "SELECT id_producto, nombre, descripcion, precio
                         <p><?php echo htmlspecialchars($p['descripcion'], ENT_QUOTES, 'UTF-8'); ?></p>
                         <p><strong>Q <?php echo number_format($p['precio'], 2); ?></strong></p>
                         <p class="text-muted"><?php echo t('disponibles'); ?>: <?php echo (int)$p['stock']; ?></p>
+                        <form action="./process/carrito.php" method="POST">
+                         <input type="hidden" name="accion" value="agregar">
+                           <input type="hidden" name="id_producto" value="<?php echo (int)$p['id_producto']; ?>">
+                           <button type="submit" class="btn btn-success btn-sm">
+                              <i class="fa fa-shopping-cart"></i>&nbsp;<?php echo t('agregar'); ?>
+                           </button>
+                       </form>
                     </div>
                 </div>
             </div>

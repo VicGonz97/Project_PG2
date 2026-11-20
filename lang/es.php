@@ -38,6 +38,17 @@ return [
     'meses' => 'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre',
     //inicio de sesión
      'error_titulo' => 'OCURRIÓ UN ERROR',
-        'login_error' => 'Nombre de usuario o contraseña incorrectos',
+    'login_error' => 'Nombre de usuario o contraseña incorrectos',
+    // Agregar al carrito
+    'agregar'          => 'Agregar al carrito',
+    'carrito'          => 'Carrito',
+    'carrito_vacio'    => 'Tu carrito está vacío.',
+    'producto'         => 'Producto',
+    'precio'           => 'Precio',
+    'cantidad'         => 'Cantidad',
+    'subtotal'         => 'Subtotal',
+    'total'            => 'Total',
+    'actualizar'       => 'Actualizar',
+    'seguir_comprando' => 'Seguir comprando',
 ];
 
