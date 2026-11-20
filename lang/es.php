@@ -12,6 +12,9 @@ return [
     'asistencia'        => 'Asistencia',
     'contabilidad'      => 'Contabilidad',
     'reportes'          => 'Reportes',
+    'marketplace'  => 'Marketplace',
+    'sin_productos'=> 'Por el momento no hay productos disponibles.',
+    'disponibles'  => 'Disponibles',
     'iniciar_sesion'    => 'Iniciar sesión',
     // Desplegable
     'admin_usuarios'    => 'Administrar Usuarios',
@@ -29,8 +32,12 @@ return [
     // Inicio
     'bienvenido' => '¡Bienvenido!',
     'lema'       => 'COCODE siempre trabajando para el pueblo.',
+    'bienvenido_cocode'    => 'Bienvenido COCODE',
         // Fecha
     'dias'  => 'domingo,lunes,martes,miércoles,jueves,viernes,sábado',
     'meses' => 'enero,febrero,marzo,abril,mayo,junio,julio,agosto,septiembre,octubre,noviembre,diciembre',
+    //inicio de sesión
+     'error_titulo' => 'OCURRIÓ UN ERROR',
+        'login_error' => 'Nombre de usuario o contraseña incorrectos',
 ];
 

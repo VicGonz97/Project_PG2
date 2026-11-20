@@ -36,9 +36,9 @@ if (isset($_POST['nombre_login']) && isset($_POST['contrasena_login'])) {
                 echo '
                     <div class="alert alert-danger alert-dismissible fade in col-sm-3 animated bounceInDown" role="alert" style="position:fixed; top:70px; right:10px; z-index:10;"> 
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
-                        <h4 class="text-center">OCURRIÓ UN ERROR</h4>
+                        <h4 class="text-center">' . t('error_titulo') . '</h4>
                         <p class="text-center">
-                            Nombre de usuario o contraseña incorrectos
+                            ' . t('login_error') . '
                         </p>
                     </div>
                 '; 
