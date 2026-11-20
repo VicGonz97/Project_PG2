@@ -136,7 +136,7 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
                 <form role="form" action="" method="post">
                   <div class="form-group">
                     <label><i class="fa fa-male"></i>&nbsp;Nombre completo</label>
-                    <input type="text" class="form-control" name="nom_admin_reg" placeholder="Nombre completo" required="" pattern="[a-zA-Z ]{1,40}" title="Nombre Apellido" maxlength="40">
+                    <input type="text" class="form-control" name="nom_admin_reg" placeholder="Nombre completo" required="" pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,40}" title="Nombre Apellido" maxlength="40">
                   </div>
                   <div class="form-group has-success has-feedback">
                     <label class="control-label"><i class="fa fa-user"></i>&nbsp;Usuario</label>
@@ -230,7 +230,7 @@ if ($_SESSION['nombre'] != "" && $_SESSION['tipo'] == "admin") {
                 <form role="form" action="" method="POST">
                   <div class="form-group">
                     <label><i class="fa fa-male"></i>&nbsp;Nombre completo</label>
-                    <input type="text" class="form-control" value="<?php echo $reg1['nombre_completo']; ?>" name="nom_admin_up" placeholder="Nombre completo" required pattern="[a-zA-Z ]{1,40}" title="Nombre Apellido" maxlength="40">
+                    <input type="text" class="form-control" value="<?php echo $reg1['nombre_completo']; ?>" name="nom_admin_up" placeholder="Nombre completo" required pattern="[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ ]{1,40}" title="Nombre Apellido" maxlength="40">
                   </div>
                   <div class="form-group">
                     <label><i class="fa fa-user"></i>&nbsp;Usuario anterior</label>
