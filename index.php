@@ -36,7 +36,7 @@ header('Content-Type: text/html; charset=UTF-8');
         $WhiteList = [
             "index", "cocode", "vcocode", "cupdate", "contribuyente", "asistencia", "contabilidad", "reportes", "registro", "configuracion", "AddContr", "ViewContr", "UpdateContr", "RegAsistencia", "SaveAsistencia",
             "ViewAsistencia", "AddConta", "SaveConta", "ViewConta", "EliminarTodo", "UpdateConta", "AddReporte", "ReporteCoco", "ReporteContr", "ReporteAsistencia", "ReporteContabilidad", "RetirarFondos", "HistorialRetiros",
-            "ViewTran", "UpdateTran", "marketplace", "carrito"
+            "ViewTran", "UpdateTran", "marketplace", "carrito", "pedido", "pedido_ok"
         ];
         if (in_array($content, $WhiteList) && is_file("./user/" . $content . "-view.php")) {
             include "./user/" . $content . "-view.php";

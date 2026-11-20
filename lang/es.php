@@ -50,5 +50,21 @@ return [
     'total'            => 'Total',
     'actualizar'       => 'Actualizar',
     'seguir_comprando' => 'Seguir comprando',
+    //Pedido
+    'hacer_pedido'        => 'Hacer pedido',
+    'datos_pedido'        => 'Datos del pedido',
+    'nombre_completo'     => 'Nombre completo',
+    'telefono'            => 'Teléfono',
+    'direccion'           => 'Dirección de entrega',
+    'confirmar_pedido'    => 'Confirmar pedido',
+    'ir_al_carrito'       => 'Volver al carrito',
+    'pago_info'           => 'El pago se hace contra entrega. Confirma tu pedido por WhatsApp para coordinar la entrega.',
+    'pedido_error_datos'  => 'Revisa tus datos: el teléfono debe tener 8 números.',
+    'pedido_error_stock'  => 'Alguno de los productos ya no está disponible en esa cantidad.',
+    'pedido_error_general'=> 'No se pudo guardar el pedido. Inténtalo de nuevo.',
+    'pedido_recibido'     => '¡Pedido recibido!',
+    'pedido_numero'       => 'Tu número de pedido es',
+    'confirmar_whatsapp'  => 'Confirmar por WhatsApp',
+    'sin_pedido'          => 'No hay un pedido reciente.',
 ];
 
