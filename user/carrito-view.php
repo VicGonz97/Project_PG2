@@ -72,6 +72,9 @@ if (!empty($carrito)) {
                 </tfoot>
             </table>
         </div>
+        <a href="./index.php?view=pedido" class="btn btn-primary">
+    <i class="fa fa-check"></i>&nbsp;<?php echo t('hacer_pedido'); ?>
+</a>
     <?php endif; ?>
 
     <a href="./index.php?view=marketplace"><span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<?php echo t('seguir_comprando'); ?></a>
